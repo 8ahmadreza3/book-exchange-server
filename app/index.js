@@ -1,5 +1,6 @@
 const express = require('express')
 const app = express()
+require('./db')
 require('./middlewares')(app)
 require('./routes')(app)
 require('./middlewares/exception')(app)
