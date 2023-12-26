@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const booksSchema = new mongoose.Schema({
+const authorSchema = new mongoose.Schema({
   name: String,
   birthYear: Number,
   deadYear: { type: Number, default: 0 },
@@ -8,6 +8,6 @@ const booksSchema = new mongoose.Schema({
   books: Array
 })
 
-const booksModel = mongoose.model('Books', booksSchema)
+const authorModel = mongoose.model('Author', authorSchema)
 
-module.exports = booksModel
+module.exports = authorModel
