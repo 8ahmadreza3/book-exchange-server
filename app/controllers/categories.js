@@ -1,7 +1,7 @@
 const CategoriesModel = require('../models/categoriesModel')
 
 module.exports.categoriesList = async (req, res, next) => {
-  const categories = await CategoriesModel.find({})
+  const categories = await CategoriesModel.find({}, { categoryName: 1 })
   res.send({
     message: 'success',
     data: {
