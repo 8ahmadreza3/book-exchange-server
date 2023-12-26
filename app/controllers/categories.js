@@ -1,18 +1,26 @@
 const CategoriesModel = require('../models/categoriesModel')
 
-module.exports.categoriesList = (req, res, next) => {
-  res.send()
+module.exports.categoriesList = async (req, res, next) => {
+  const categories = await CategoriesModel.find({})
+  res.send({
+    message: 'success',
+    data: {
+      categories
+    }
+  })
 }
 
 module.exports.categoriesAdd = async (req, res, next) => {
   try {
+    const { categoryName } = req.body
     const newCategory = new CategoriesModel({
-      categoryName: ''
+      categoryName
     })
     await newCategory.save()
-    res.send({
+    res.status(201).send({
       success: true,
-      message: 'new categories added'
+      message: 'new categories added',
+      newCategory
     })
   } catch (error) {
     next(error)
