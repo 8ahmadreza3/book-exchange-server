@@ -1,4 +1,5 @@
 const UserModel = require('../models/userModel')
+const tokenService = require('../services/tokenService')
 
 module.exports.usersList = async (req, res, next) => {
   const users = await UserModel.find({})
@@ -77,6 +78,27 @@ module.exports.patchUser = async (req, res, next) => {
     res.send({
       success: true,
       message: 'User information has been updated.'
+    })
+  } catch (error) {
+    next(error)
+  }
+}
+
+module.exports.longIn = async (req, res, next) => {
+  try {
+    const { phone } = req.body
+    const user = await UserModel.findOne({ phone })
+    if (!user) {
+      return res.status(404).send({
+        status: 404,
+        message: 'not found user'
+      })
+    }
+    const token = tokenService.sign({ id: user._id })
+    res.send({
+      status: 200,
+      message: '',
+      token
     })
   } catch (error) {
     next(error)

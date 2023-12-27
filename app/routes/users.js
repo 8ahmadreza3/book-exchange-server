@@ -6,5 +6,6 @@ router.get('/', usersController.usersList)
 router.post('/', usersController.signUp)
 router.delete('/:category', usersController.deleteUser)
 router.patch('/:category', usersController.patchUser)
+router.post('/login', usersController.longIn)
 
 module.exports = router
