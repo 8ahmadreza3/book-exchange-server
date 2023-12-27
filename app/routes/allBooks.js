@@ -1,8 +1,8 @@
 const express = require('express')
 const router = express.Router()
-const allBooksController = require('../controllers/allBooks')
+const booksController = require('../controllers/books')
 
-router.post('/', allBooksController.bookAdd)
-router.get('/', allBooksController.booksList)
+router.post('/', booksController.bookAdd)
+router.get('/', booksController.booksList)
 
 module.exports = router
