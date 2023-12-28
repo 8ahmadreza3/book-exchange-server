@@ -12,9 +12,9 @@ const usersSchema = new mongoose.Schema({
   },
   img: String,
   state: String,
-  city: String
+  city: String,
+  admin: Boolean
 })
-
 const userModel = mongoose.model('User', usersSchema)
 
 module.exports = userModel

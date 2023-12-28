@@ -2,10 +2,10 @@ const express = require('express')
 const router = express.Router()
 const usersController = require('../controllers/users')
 
-router.get('/', usersController.usersList)
-router.post('/signup', usersController.signUp)
+router.get('/', usersController.listUsers)
+router.post('/signup', usersController.signUpUser)
 router.delete('/:category', usersController.deleteUser)
-router.patch('/:category', usersController.patchUser)
-router.post('/login', usersController.longIn)
+router.patch('/:category', usersController.updateUser)
+router.post('/login', usersController.loginUser)
 
 module.exports = router
