@@ -4,7 +4,9 @@ const booksSchema = new mongoose.Schema({
   name: String,
   author: String,
   category: String,
-  info: String
+  info: String,
+  img: String,
+  address: String
 })
 
 const booksModel = mongoose.model('Books', booksSchema)

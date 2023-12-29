@@ -2,13 +2,14 @@ const AuthorModel = require('../../models/authorsModel')
 
 module.exports = async (req, res, next) => {
   try {
-    const { name, birthYear, deadYear, info, books } = req.body
+    const { name, birthYear, deadYear, info, books, address } = req.body
     const newAuthor = new AuthorModel({
       name,
       birthYear,
       deadYear,
       info,
-      books
+      books,
+      address
     })
     await newAuthor.save()
     res.status(201).send({

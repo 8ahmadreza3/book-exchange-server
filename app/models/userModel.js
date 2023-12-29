@@ -13,7 +13,8 @@ const usersSchema = new mongoose.Schema({
   img: String,
   state: String,
   city: String,
-  admin: Boolean
+  admin: Boolean,
+  password: String
 })
 const userModel = mongoose.model('User', usersSchema)
 
