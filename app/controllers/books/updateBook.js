@@ -1,24 +1,24 @@
-const UserModel = require('../../models/usersModel')
+const BooksModel = require('../../models/booksModel')
 
 module.exports = async (req, res, next) => {
   try {
-    const { userName } = req.params
-    if (!userName) {
+    const { address } = req.params
+    if (!address) {
       return res.status(404).send({
         error: true,
-        message: 'Invalid User'
+        message: 'Invalid book'
       })
     }
-    const { n, nModified } = await UserModel.updateOne({ userName }, { ...req.body })
+    const { n, nModified } = await BooksModel.updateOne({ address }, { ...req.body })
     if (n === 0 || nModified === 0) {
       return res.status(404).send({
         error: true,
-        message: 'Can not update User'
+        message: 'Can not update book'
       })
     }
     res.send({
       success: true,
-      message: 'User information has been updated.'
+      message: 'book information has been updated.'
     })
   } catch (error) {
     next(error)
