@@ -1,25 +1,25 @@
-const CategoriesModel = require('../../models/categoriesModel')
+const AuthorsModel = require('../../models/authorsModel')
 
 module.exports = async (req, res, next) => {
   try {
-    const { category } = req.params
-    if (!category) {
+    const { address } = req.params
+    if (!address) {
       return res.status(404).send({
         error: true,
-        message: 'Invalid'
+        message: 'Invalid id'
       })
     }
-    const { acknowledged, deletedCount } = await CategoriesModel.deleteOne({ finglish: category })
+    const { acknowledged, deletedCount } = await AuthorsModel.deleteOne({ address })
     if (deletedCount === 0) {
       return res.send({
         acknowledged,
         error: true,
-        message: 'category not found'
+        message: 'author not found'
       })
     }
     res.send({
       success: true,
-      message: 'category deleted'
+      message: 'author deleted'
     })
   } catch (error) {
     next(error)
