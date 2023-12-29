@@ -3,8 +3,8 @@ const tokenService = require('../../services/tokenService')
 
 module.exports = async (req, res, next) => {
   try {
-    const { phone } = req.body
-    const user = await UserModel.findOne({ phone })
+    const { userName } = req.body
+    const user = await UserModel.findOne({ userName })
     if (!user) {
       return res.status(404).send({
         status: 404,

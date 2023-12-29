@@ -9,7 +9,13 @@ module.exports = async (req, res, next) => {
         message: 'Invalid User'
       })
     }
-    await UserModel.deleteOne({ userName })
+    const { acknowledged, deletedCount } = await UserModel.deleteOne({ userName })
+    if (deletedCount === 0) {
+      return res.send({
+        acknowledged,
+        message: 'user not found'
+      })
+    }
     res.send({
       success: true,
       message: 'User deleted'

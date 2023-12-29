@@ -2,10 +2,10 @@ const CategoriesModel = require('../../models/categoriesModel')
 
 module.exports = async (req, res, next) => {
   try {
-    const { name, finglish } = req.body
+    const { name, address } = req.body
     const newCategory = new CategoriesModel({
       name,
-      finglish
+      address
     })
     await newCategory.save()
     res.status(201).send({

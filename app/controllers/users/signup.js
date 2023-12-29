@@ -6,9 +6,9 @@ module.exports = async (req, res, next) => {
       Name,
       userName,
       phone,
-      // img
       state,
       city
+      // password
     } = req.body
     const newUser = new UserModel({
       Name,
@@ -17,7 +17,8 @@ module.exports = async (req, res, next) => {
       img: '',
       state,
       city,
-      admin: false
+      admin: false,
+      password: ''
     })
     await newUser.save()
     res.status(201).send({
