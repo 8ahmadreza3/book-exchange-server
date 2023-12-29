@@ -1,4 +1,5 @@
-const AuthorModel = require('../../models/authorsModel')
+const AuthorsModel = require('../../models/authorsModel')
+const BooksModel = require('../../models/booksModel')
 
 module.exports = async (req, res, next) => {
   try {
@@ -6,20 +7,22 @@ module.exports = async (req, res, next) => {
     if (!address) {
       return res.status(404).send({
         error: true,
-        message: 'Invalid id'
+        message: 'Invalid address'
       })
     }
-    const author = await AuthorModel.findOne({ address })
+    const author = await AuthorsModel.findOne({ address })
     if (!author) {
       return res.status(404).send({
         error: true,
         message: 'Invalid Author'
       })
     }
+    const authorBooks = await BooksModel.find({ author: author.name })
     res.send({
       success: true,
       data: {
-        author
+        author,
+        books: authorBooks
       }
     })
   } catch (error) {

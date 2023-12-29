@@ -1,24 +1,24 @@
-const UserModel = require('../../models/usersModel')
+const booksModel = require('../../models/booksModel')
 
 module.exports = async (req, res, next) => {
   try {
-    const { userName } = req.params
-    if (!userName) {
+    const { address } = req.params
+    if (!address) {
       return res.status(404).send({
         error: true,
-        message: 'Invalid User'
+        message: 'Invalid book'
       })
     }
-    const { acknowledged, deletedCount } = await UserModel.deleteOne({ userName })
+    const { acknowledged, deletedCount } = await booksModel.deleteOne({ address })
     if (deletedCount === 0) {
       return res.send({
         acknowledged,
-        message: 'user not found'
+        message: 'book not found'
       })
     }
     res.send({
       success: true,
-      message: 'User deleted'
+      message: 'book deleted'
     })
   } catch (error) {
     next(error)
