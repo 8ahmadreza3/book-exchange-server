@@ -5,7 +5,6 @@ const authorSchema = new mongoose.Schema({
   birthYear: Number,
   deadYear: { type: Number, default: -1 },
   bioGraphy: String,
-  books: Array,
   img: String,
   address: String
 })
