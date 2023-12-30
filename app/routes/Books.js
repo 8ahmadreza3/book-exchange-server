@@ -4,6 +4,7 @@ const booksController = require('../controllers/books')
 
 router.post('/', booksController.addBook)
 router.get('/', booksController.listBook)
+router.get('/:address', booksController)
 router.delete('/:address', booksController.deleteBook)
 router.patch('/:address', booksController.updateBook)
 
