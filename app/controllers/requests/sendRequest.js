@@ -10,9 +10,15 @@ module.exports = async (req, res, next) => {
     } = req.body
     const newRequest = { userName, time, description }
     const pre = await RequestModel.find({ _id: id })
-    await RequestModel.update({ _id: id }, {
+    const { n, nModified } = await RequestModel.update({ _id: id }, {
       requests: [...pre.requests, ...newRequest]
     })
+    if (n === 0 || nModified === 0) {
+      return res.status(404).send({
+        error: true,
+        message: 'can not send request'
+      })
+    }
     res.status(201).send({
       success: true,
       message: 'request sended'
