@@ -19,7 +19,7 @@ module.exports = async (req, res, next) => {
     await newRequest.save()
     res.status(201).send({
       success: true,
-      message: 'new category added',
+      message: 'new request added',
       newRequest
     })
   } catch (error) {

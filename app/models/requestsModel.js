@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 
 const requestsSchema = new mongoose.Schema({
   owner: String,
-  book: Number,
+  book: Object,
   requests: Array,
   getter: String,
   time: String,
