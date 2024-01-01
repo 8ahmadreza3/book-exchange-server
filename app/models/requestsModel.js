@@ -3,6 +3,7 @@ const mongoose = require('mongoose')
 const requestsSchema = new mongoose.Schema({
   owner: String,
   book: Object,
+  createdAt: Date,
   requests: Array,
   getter: String,
   time: String,

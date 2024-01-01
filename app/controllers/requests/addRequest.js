@@ -10,6 +10,7 @@ module.exports = async (req, res, next) => {
     const newRequest = new RequestModel({
       owner,
       book,
+      createdAt: new Date(),
       requests: '',
       getter: '',
       time: '',
