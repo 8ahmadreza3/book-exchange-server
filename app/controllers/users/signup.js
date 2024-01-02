@@ -1,4 +1,5 @@
 const UserModel = require('../../models/usersModel')
+const hashServices = require('../../services/dateService')
 
 module.exports = async (req, res, next) => {
   try {
@@ -7,9 +8,10 @@ module.exports = async (req, res, next) => {
       userName,
       phone,
       state,
-      city
-      // password
+      city,
+      password
     } = req.body
+    const hashPassword = hashServices.hashPassword(password)
     const newUser = new UserModel({
       Name,
       userName,
@@ -18,7 +20,7 @@ module.exports = async (req, res, next) => {
       state,
       city,
       admin: false,
-      password: ''
+      password: hashPassword
     })
     await newUser.save()
     res.status(201).send({
