@@ -6,7 +6,7 @@ const requestsRouter = require('./requests')
 // const auth = require('../services/tokenService')
 
 module.exports = (app) => {
-  app.use('/user', usersRouter)
+  app.use('/users', usersRouter)
   app.use('/categories', categoriesRouter)
   app.use('/books', allBooksRouter)
   app.use('/authors', authorsRouter)
