@@ -9,7 +9,8 @@ module.exports = async (req, res, next) => {
       deadYear,
       biography,
       address,
-      img: ''
+      img: '',
+      books: []
     })
     await newAuthor.save()
     res.status(201).send({

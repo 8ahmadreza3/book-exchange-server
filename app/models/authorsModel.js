@@ -6,7 +6,11 @@ const authorSchema = new mongoose.Schema({
   deadYear: { type: Number, default: -1 },
   bioGraphy: String,
   img: String,
-  address: String
+  address: String,
+  books: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Book'
+  }]
 })
 
 const authorModel = mongoose.model('Author', authorSchema)

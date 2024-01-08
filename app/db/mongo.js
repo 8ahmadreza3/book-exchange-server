@@ -6,6 +6,12 @@ mongoose.connection.on('error', error => {
 })
 const startMongoDB = () => {
   mongoose.connect(`mongodb://${MONGO_HOST}:${MONGO_PORT}/${MONGO_DB}`)
+    .then(() => {
+      console.log('connected to mongodb')
+    })
+    .catch(() => {
+      console.log('could not connect to mongodb')
+    })
 }
 
 module.exports = startMongoDB
