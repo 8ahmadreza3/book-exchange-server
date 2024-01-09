@@ -9,6 +9,12 @@ require('./middlewares/exception')(app)
 require('./middlewares/404')(app)
 
 Winston.add(new Winston.transports.File({ fileName: 'logFile.log' }))
+process.on('uncaughtException', (ex) => {
+  Winston.error(ex.message, ex)
+})
+process.on('unhandledRejection', (ex) => {
+  Winston.error(ex.message, ex)
+})
 module.exports = (port) => {
   app.listen(port, () => {
     console.log(`app is running on port:${port}`)

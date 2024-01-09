@@ -1,5 +1,6 @@
 const RequestsModel = require('../../models/requestsModel')
 const dateService = require('../../services/dateService')
+
 module.exports = async (req, res, next) => {
   const { userName } = req.param
   if (!userName) {

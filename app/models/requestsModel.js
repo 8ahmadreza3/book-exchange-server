@@ -5,7 +5,7 @@ const requestsSchema = new mongoose.Schema({
   owner: String,
   book: Object,
   createdAt: Date,
-  requests: Array,
+  applicants: Array,
   getter: String,
   time: String,
   conditions: String,

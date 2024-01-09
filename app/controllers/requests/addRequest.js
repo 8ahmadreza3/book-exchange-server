@@ -11,7 +11,7 @@ module.exports = async (req, res, next) => {
       owner,
       book,
       createdAt: new Date(),
-      requests: '',
+      applicants: [],
       getter: '',
       time: '',
       conditions,
