@@ -8,7 +8,7 @@ require('./routes')(app)
 require('./middlewares/exception')(app)
 require('./middlewares/404')(app)
 
-Winston.add(new Winston.transports.File({ fileName: 'logFile.log' }))
+Winston.add(new Winston.transports.File({ filename: 'logFile.log' }))
 process.on('uncaughtException', (ex) => {
   Winston.error(ex.message, ex)
 })
