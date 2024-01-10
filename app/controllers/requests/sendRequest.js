@@ -1,18 +1,18 @@
-const RequestModel = require('../../models/requestsModel')
+const RequestsModel = require('../../models/requestsModel')
 
 module.exports = async (req, res, next) => {
   try {
-    const { id } = req.param
     const {
+      requestId,
       userName,
       time,
       description
     } = req.body
-    const newRequest = { userName, time, description }
-    const pre = await RequestModel.find({ _id: id })
-    const { n, nModified } = await RequestModel.update({ _id: id }, {
-      requests: [...pre.requests, ...newRequest]
-    })
+    const newApplicantor = [{ userName, time, description }]
+    const preApplicant = await RequestsModel.findOne({ _id: requestId }, { _id: 0 })
+    console.log(preApplicant.applicants)
+    const newApplicants = [...preApplicant.applicants, ...newApplicantor]
+    const { n, nModified } = await RequestsModel.updateOne({ _id: requestId }, { applicants: newApplicants })
     if (n === 0 || nModified === 0) {
       return res.status(404).send({
         error: true,
