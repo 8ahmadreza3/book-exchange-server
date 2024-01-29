@@ -9,8 +9,8 @@ module.exports = async (req, res, next) => {
       description
     } = req.body
     const newApplicantor = [{ userName, time, description }]
-    const preApplicant = await RequestsModel.findOne({ _id: requestId }, { _id: 0 })
-    const newApplicants = [...preApplicant.applicants, ...newApplicantor]
+    const pre = await RequestsModel.findOne({ _id: requestId }, { _id: 0 })
+    const newApplicants = [...pre.applicants, ...newApplicantor]
     const { n, nModified } = await RequestsModel.updateOne({ _id: requestId }, { applicants: newApplicants })
     if (n === 0 || nModified === 0) {
       return res.status(404).send({
