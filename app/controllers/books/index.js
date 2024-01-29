@@ -3,7 +3,7 @@ const listBook = require('./listBooks')
 const deleteBook = require('./deleteBook')
 const updateBook = require('./updateBook')
 const infoBook = require('./infoBook')
-const recommendBooks = require('./recommedBooks')
+const recommendBooks = require('./recommendBooks')
 
 module.exports = {
   addBook,
