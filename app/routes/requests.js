@@ -4,6 +4,7 @@ const requestsController = require('../controllers/requests')
 
 router.post('/', requestsController.addRequest)
 router.patch('/confirm', requestsController.confirmRequest)
+router.patch('./adminConfirm', requestsController.adminConfirmRequest)
 router.patch('/send', requestsController.sendRequest)
 router.delete('/', requestsController.deleteRequest)
 router.get('/', requestsController.allRequests)
