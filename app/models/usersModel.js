@@ -17,7 +17,7 @@ const usersSchema = new mongoose.Schema({
   img: String,
   state: String,
   city: String,
-  admin: {
+  isAdmin: {
     type: Boolean,
     default: false
   },

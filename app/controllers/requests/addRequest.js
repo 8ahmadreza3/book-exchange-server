@@ -15,7 +15,8 @@ module.exports = async (req, res, next) => {
       getter: '',
       time: '',
       conditions,
-      description: ''
+      description: '',
+      status: 'درانتظار تائید'
     })
     await newRequest.save()
     res.status(201).send({

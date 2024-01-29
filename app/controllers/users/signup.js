@@ -35,7 +35,7 @@ module.exports = async (req, res, next) => {
       img: '',
       state,
       city,
-      admin: false,
+      isAdmin: false,
       password: hashPassword
     })
     await newUser.save()
