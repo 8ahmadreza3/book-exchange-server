@@ -9,7 +9,8 @@ const booksSchema = new mongoose.Schema({
   category: String,
   info: String,
   img: String,
-  address: { type: String, unique: true }
+  address: { type: String, unique: true },
+  isRecommend: { type: Boolean, default: false }
 })
 
 const BooksModel = mongoose.model('Books', booksSchema)
