@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 const status = ['درانتظار تائید', 'امانت داده شده', 'پس گرفته شده', 'در حال نمایش']
 const requestsSchema = new mongoose.Schema({
   owner: String,
-  book: Object,
+  book: String,
   createdAt: Date,
   applicants: Array,
   getter: String,
