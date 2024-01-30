@@ -14,7 +14,8 @@ const authorSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Book'
   }],
-  isRecommend: { type: Boolean, default: false }
+  isRecommend: { type: Boolean, default: false },
+  isConfirmed: { type: Boolean, default: false }
 })
 
 const authorModel = mongoose.model('Author', authorSchema)
