@@ -4,3 +4,4 @@ nodemon.json
 .log
 logfile.log
 *.log
+.vscode
