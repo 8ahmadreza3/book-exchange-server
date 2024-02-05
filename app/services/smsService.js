@@ -3,12 +3,12 @@ const MelipayamakApi = require('melipayamak')
 const api = new MelipayamakApi(process.env.MELI_USERNAME, process.env.MELI_PASSWORDS)
 const sms = api.sms()
 
-module.exports = (to, auth) => {
-  const text = `کد اعتبارسنجی شما ${auth}`
+module.exports = (to, authCode) => {
+  const text = `کد اعتبارسنجی شما ${authCode}`
   sms.send(to, process.env.MELI_NUMBER, text)
     .then(res => {
-      console.log('res' + res)
+      console.log(res)
     }).catch(err => {
-      console.log(err)
+      throw err
     })
 }

@@ -3,7 +3,7 @@ const allBooksRouter = require('./Books')
 const authorsRouter = require('./authors')
 const usersRouter = require('./users')
 const requestsRouter = require('./requests')
-// const auth = require('../services/tokenService')
+const authSMS = require('../controllers/authSMS')
 
 module.exports = (app) => {
   app.use('/users', usersRouter)
@@ -11,4 +11,5 @@ module.exports = (app) => {
   app.use('/books', allBooksRouter)
   app.use('/authors', authorsRouter)
   app.use('/requests', requestsRouter)
+  app.get('/sms/:number', authSMS)
 }
