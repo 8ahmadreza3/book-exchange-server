@@ -1,10 +1,22 @@
 const smsService = require('../../services/smsService')
+const UserModel = require('../../models/usersModel')
 
 module.exports = async (req, res, next) => {
   try {
-    const { number } = req.params
+    let { phone, userName } = req.params
+    if (!phone) {
+      const user = UserModel.findOne({ userName })
+      phone = user.phone
+      if (!user) {
+        return res.send({
+          success: false,
+          message: 'user phone not found',
+          message_fa: 'شماره کاربر یافت نشد'
+        })
+      }
+    }
     const authCode = Math.floor(Math.random() * 90000 + 10000)
-    smsService(number, authCode)
+    smsService(phone, authCode)
     res.send({
       success: true,
       message: 'Authentication code sent',
