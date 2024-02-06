@@ -5,20 +5,23 @@ module.exports = async (req, res, next) => {
     const { category } = req.params
     if (!category) {
       return res.status(404).send({
-        error: true,
-        message: 'Invalid'
+        success: false,
+        message: 'Invalid category',
+        message_fa: 'دسته نامعتبر'
       })
     }
-    const { n, nModified } = await CategoriesModel.updateOne({ finglish: category }, { ...req.body })
+    const { n, nModified } = await CategoriesModel.updateOne({ address: category }, { ...req.body })
     if (n === 0 || nModified === 0) {
       return res.status(404).send({
-        error: true,
-        message: 'can not update'
+        success: true,
+        message: 'can not update category',
+        message_fa: 'نمی توان دسته را به روز کرد'
       })
     }
     res.send({
       success: true,
-      message: `Category ${category}'s information has been updated.`
+      message: 'Category information has been updated',
+      message_fa: 'اطلاعات دسته به روز شد'
     })
   } catch (error) {
     next(error)

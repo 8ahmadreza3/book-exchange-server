@@ -5,21 +5,23 @@ module.exports = async (req, res, next) => {
     const { category } = req.params
     if (!category) {
       return res.status(404).send({
-        error: true,
-        message: 'Invalid'
+        success: false,
+        message: 'Invalid category',
+        message_fa: 'دسته نامعتبر'
       })
     }
-    const { acknowledged, deletedCount } = await CategoriesModel.deleteOne({ finglish: category })
+    const { deletedCount } = await CategoriesModel.deleteOne({ address: category })
     if (deletedCount === 0) {
       return res.send({
-        acknowledged,
-        error: true,
-        message: 'category not found'
+        success: false,
+        message: 'category not found',
+        message_fa: 'دسته پیدا نشد'
       })
     }
     res.send({
       success: true,
-      message: 'category deleted'
+      message: 'category deleted',
+      message_fa: 'دسته حذف شد'
     })
   } catch (error) {
     next(error)
