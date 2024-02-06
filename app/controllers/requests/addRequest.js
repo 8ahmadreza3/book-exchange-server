@@ -5,15 +5,17 @@ module.exports = async (req, res, next) => {
     const {
       owner,
       book,
-      conditions
+      conditions,
+      printYear
     } = req.body
     const newRequest = new RequestModel({
       owner,
       book,
+      printYear,
       createdAt: new Date(),
       applicants: [],
       getter: '',
-      time: '',
+      time: 0,
       conditions,
       description: '',
       status: 'درانتظار تائید'
