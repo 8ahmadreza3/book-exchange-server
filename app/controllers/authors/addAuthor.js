@@ -1,9 +1,9 @@
-const AuthorModel = require('../../models/authorsModel')
+const AuthorsModel = require('../../models/authorsModel')
 
 module.exports = async (req, res, next) => {
   try {
     const { name, birthYear, deadYear, biography, address } = req.body
-    const newAuthor = new AuthorModel({
+    const newAuthor = new AuthorsModel({
       name,
       birthYear,
       deadYear,
