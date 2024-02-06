@@ -6,23 +6,27 @@ module.exports = async (req, res, next) => {
     const { address } = req.params
     if (!address) {
       return res.status(404).send({
-        error: true,
-        message: 'Invalid address'
+        success: false,
+        message: 'Invalid address',
+        message_fa: 'آدرس نامعتبر'
       })
     }
     const book = await BooksModel.findOne({ address })
     if (!book) {
       return res.status(404).send({
-        error: true,
-        message: 'Invalid book'
+        success: false,
+        message: 'Invalid book',
+        message_fa: 'کتاب نامعتبر'
       })
     }
-    const bookAuthor = await AuthorsModel.find({ name: book.author })
+    const bookAuthor = await AuthorsModel.findOne({ name: book.author })
     res.send({
       success: true,
+      message: 'book information found',
+      message_fa: 'اطلاعات کتاب پیدا شد',
       data: {
         book,
-        bookAuthor
+        author: bookAuthor
       }
     })
   } catch (error) {

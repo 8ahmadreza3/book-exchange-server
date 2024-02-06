@@ -5,20 +5,23 @@ module.exports = async (req, res, next) => {
     const { address } = req.params
     if (!address) {
       return res.status(404).send({
-        error: true,
-        message: 'Invalid book'
+        success: false,
+        message: 'Invalid book',
+        message_fa: 'کتاب نامعتبر'
       })
     }
-    const { acknowledged, deletedCount } = await booksModel.deleteOne({ address })
+    const { deletedCount } = await booksModel.deleteOne({ address })
     if (deletedCount === 0) {
       return res.send({
-        acknowledged,
-        message: 'book not found'
+        success: false,
+        message: 'book not found',
+        message_fa: 'کتاب پیدا نشد'
       })
     }
     res.send({
       success: true,
-      message: 'book deleted'
+      message: 'book deleted',
+      message_fa: 'کتاب حذف شد'
     })
   } catch (error) {
     next(error)

@@ -1,5 +1,4 @@
 const { BooksModel } = require('../../models/booksModel')
-const AuthorModel = require('../../models/authorsModel')
 
 module.exports = async (req, res, next) => {
   try {
@@ -12,14 +11,10 @@ module.exports = async (req, res, next) => {
       address
     })
     await newBook.save()
-    const bookAuthor = await AuthorModel.find({ name: author })
-    console.log(bookAuthor)
-    bookAuthor.books.push(newBook._id)
-    await bookAuthor.save()
     res.status(201).send({
       success: true,
-      message: 'new book added',
-      newBook
+      message: 'New book added',
+      message_fa: 'کتاب جدید اضافه شد'
     })
   } catch (error) {
     next(error)
