@@ -9,14 +9,13 @@ module.exports = async (req, res, next) => {
       deadYear,
       biography,
       address,
-      img: '',
-      books: []
+      img: ''
     })
     await newAuthor.save()
     res.status(201).send({
       success: true,
-      message: 'new author added',
-      newAuthor
+      message: 'new author New author added',
+      message_fa: 'نویسنده جدید اضافه شد'
     })
   } catch (error) {
     next(error)

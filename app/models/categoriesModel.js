@@ -4,7 +4,9 @@ const categoriesSchema = new mongoose.Schema({
     type: String,
     minlength: 3
   },
-  address: { type: String, unique: true }
+  address: { type: String, unique: true },
+  isRecommend: { type: Boolean, default: false },
+  isConfirmed: { type: Boolean, default: false }
 })
 
 const categoriesModel = mongoose.model('Category', categoriesSchema)

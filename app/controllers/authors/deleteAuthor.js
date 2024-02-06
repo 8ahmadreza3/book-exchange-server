@@ -5,21 +5,23 @@ module.exports = async (req, res, next) => {
     const { address } = req.params
     if (!address) {
       return res.status(404).send({
-        error: true,
-        message: 'Invalid id'
+        success: false,
+        message: 'Invalid address',
+        message_fa: 'آدرس نامعتبر'
       })
     }
-    const { acknowledged, deletedCount } = await AuthorsModel.deleteOne({ address })
+    const { deletedCount } = await AuthorsModel.deleteOne({ address })
     if (deletedCount === 0) {
       return res.send({
-        acknowledged,
-        error: true,
-        message: 'author not found'
+        success: false,
+        message: 'Author not found',
+        message_fa: 'نویسنده یافت نشد'
       })
     }
     res.send({
       success: true,
-      message: 'author deleted'
+      message: 'The author was removed',
+      message_fa: 'نویسنده حذف شد'
     })
   } catch (error) {
     next(error)

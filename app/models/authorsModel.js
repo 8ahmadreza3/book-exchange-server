@@ -10,10 +10,6 @@ const authorSchema = new mongoose.Schema({
   bioGraphy: String,
   img: String,
   address: { type: String, unique: true },
-  books: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Book'
-  }],
   isRecommend: { type: Boolean, default: false },
   isConfirmed: { type: Boolean, default: false }
 })
