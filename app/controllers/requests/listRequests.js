@@ -8,15 +8,23 @@ module.exports = async (req, res, next) => {
       error: 'Invalid user'
     })
   }
-  const requests = await RequestsModel.find({ owner: userName })
-  const presentedRequests = requests.map(request => {
+  const requestsOwner = await RequestsModel.find({ owner: userName })
+  const requestsGetter = await RequestsModel.find({ getter: userName })
+  const owner = requestsOwner.map(request => {
+    request.createdAt_persian = dateService.toPersianDate(request.createdAt)
+    return request
+  })
+  const getter = requestsGetter.map(request => {
     request.createdAt_persian = dateService.toPersianDate(request.createdAt)
     return request
   })
   res.send({
-    message: 'success',
+    success: true,
+    message: '',
+    message_fa: '',
     data: {
-      presentedRequests
+      getter,
+      owner
     }
   })
 }
