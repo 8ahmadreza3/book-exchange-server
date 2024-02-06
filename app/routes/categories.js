@@ -3,7 +3,7 @@ const router = express.Router()
 const categoriesController = require('../controllers/categories')
 
 router.get('/', categoriesController.listCategories)
-router.post('/:category', categoriesController.booksCategory)
+router.get('/:category', categoriesController.booksCategory)
 router.post('/', categoriesController.addCategory)
 router.delete('/:category', categoriesController.deleteCategory)
 router.patch('/:category', categoriesController.updateCategory)

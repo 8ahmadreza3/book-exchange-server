@@ -1,5 +1,5 @@
 const categoriesRouter = require('./categories')
-const allBooksRouter = require('./Books')
+const allBooksRouter = require('./books')
 const authorsRouter = require('./authors')
 const usersRouter = require('./users')
 const requestsRouter = require('./requests')
