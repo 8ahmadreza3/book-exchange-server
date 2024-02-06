@@ -23,8 +23,8 @@ module.exports = async (req, res, next) => {
     await newRequest.save()
     res.status(201).send({
       success: true,
-      message: 'new request added',
-      newRequest
+      message: 'Book loan request was registered',
+      message_fa: 'درخواست امانت کتاب ثبت شد'
     })
   } catch (error) {
     next(error)

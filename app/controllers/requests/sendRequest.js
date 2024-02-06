@@ -14,13 +14,15 @@ module.exports = async (req, res, next) => {
     const { n, nModified } = await RequestsModel.updateOne({ _id: requestId }, { applicants: newApplicants })
     if (n === 0 || nModified === 0) {
       return res.status(404).send({
-        error: true,
-        message: 'can not send request'
+        success: false,
+        message: 'can not send request',
+        message_fa: 'نمی توان درخواست ارسال کند'
       })
     }
     res.status(201).send({
       success: true,
-      message: 'request sended'
+      message: 'request sended',
+      message_fa: 'درخواست ارسال شد'
     })
   } catch (error) {
     next(error)
