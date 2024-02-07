@@ -1,37 +1,34 @@
 const UserModel = require('../../models/usersModel')
 const tokenService = require('../../services/tokenService')
 const hashService = require('../../services/hashService')
-const smsService = require('../../services/smsService')
 
 module.exports = async (req, res, next) => {
   try {
     const { userName, password, phone } = req.body
-    let smsCode = -1
     const user = await UserModel.findOne({ $or: [{ userName }, { phone }] })
     if (!user) {
       return res.status(404).send({
-        status: 404,
+        success: false,
         message: 'not found user',
-        message_fa: 'چنین کاربری یافت نشد'
+        message_fa: 'کاربر یافت نشد'
       })
     }
-    if (!phone) {
-      if (hashService.comparePassword(password, user.password)) {
-        return res.render({
-          error: true,
-          message: 'can not login'
-        })
-      }
-    }
-    if (!userName) {
-      smsCode = smsService.send(phone)
+    if (hashService.comparePassword(password, user.password)) {
+      return res.render({
+        success: false,
+        message: 'The password or username/number is incorrect',
+        message_fa: 'رمز یا نام کاربری/شماره اشتباه است'
+      })
     }
     const token = tokenService.sign({ id: user._id })
     res.send({
-      status: 200,
-      message: '',
-      token,
-      smsCode
+      success: true,
+      message: 'Login was successful',
+      message_fa: 'ورود با موفقیت انجام شد',
+      data: {
+        token,
+        user
+      }
     })
   } catch (error) {
     next(error)

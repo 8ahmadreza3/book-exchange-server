@@ -11,7 +11,7 @@ module.exports = async (req, res, next) => {
       city,
       password
     } = req.body
-    const samePhone = UserModel.find({ phone })
+    const samePhone = UserModel.findOne({ phone })
     if (samePhone) {
       return res.send({
         success: false,
@@ -19,7 +19,7 @@ module.exports = async (req, res, next) => {
         message_fa: 'این شماره موبایل قبلا ثبت شده است'
       })
     }
-    const sameUserName = UserModel.find({ userName })
+    const sameUserName = UserModel.findOne({ userName })
     if (sameUserName) {
       return res.send({
         success: false,
@@ -42,7 +42,7 @@ module.exports = async (req, res, next) => {
     res.status(201).send({
       success: true,
       message: 'new User added',
-      newUser
+      message_fa: 'کاربر جدید اضافه شد'
     })
   } catch (error) {
     next(error)
