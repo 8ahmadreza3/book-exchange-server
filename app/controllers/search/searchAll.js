@@ -14,11 +14,39 @@ module.exports = async (req, res, next) => {
         message_fa: 'کلمه کلیدی یافت نشد'
       })
     }
-    const books = BooksModel.find()
-    const authors = AuthorsModel.find()
-    const categories = CategoriesModel.find()
-    const requests = RequestsModel.find()
-    const users = UsersModel.find()
+    const books = BooksModel.find({
+      $or: [
+        { name: { $regex: `${keyWord}`, $options: 'i' } },
+        { author: { $regex: `${keyWord}`, $options: 'i' } },
+        { category: { $regex: `${keyWord}`, $options: 'i' } }
+      ]
+    })
+    const authors = AuthorsModel.find({
+      $or: [
+        { name: { $regex: `${keyWord}`, $options: 'i' } },
+        { bioGraphy: { $regex: `${keyWord}`, $options: 'i' } }
+      ]
+    })
+    const categories = CategoriesModel.find({
+      $or: [
+        { name: { $regex: `${keyWord}`, $options: 'i' } }
+      ]
+    })
+    const requests = RequestsModel.find({
+      $or: [
+        { owner: { $regex: `${keyWord}`, $options: 'i' } },
+        { book: { $regex: `${keyWord}`, $options: 'i' } },
+        { getter: { $regex: `${keyWord}`, $options: 'i' } }
+      ]
+    })
+    const users = UsersModel.find({
+      $or: [
+        { name: { $regex: `${keyWord}`, $options: 'i' } },
+        { userName: { $regex: `${keyWord}`, $options: 'i' } },
+        { phone: { $regex: `${keyWord}`, $options: 'i' } },
+        { city: { $regex: `${keyWord}`, $options: 'i' } }
+      ]
+    })
     res.status(201).send({
       success: true,
       message: 'new author The search was done in all databases',
