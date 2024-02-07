@@ -1,10 +1,12 @@
 const RequestsModel = require('../../models/requestsModel')
+const UsersModel = require('../../models/usersModel')
 
 module.exports = async (req, res, next) => {
   try {
     const { requestId, userName } = req.body
     const request = await RequestsModel.findOne({ _id: requestId })
-    if (request.owner === userName && !request.getter) {
+    const user = await UsersModel.findOne({ userName })
+    if ((request.owner === userName && !request.getter) || user.isAdmin) {
       await RequestsModel.deleteOne({ _id: requestId })
       return res.send({
         success: true,
@@ -12,7 +14,7 @@ module.exports = async (req, res, next) => {
         message_fa: 'درخواست توسط صاحب کتاب حذف شد'
       })
     }
-    if (request.applicants.filter(ap => ap.userName === userName).length > 0) {
+    if (request.applicants.filter(ap => ap.userName === userName).length > 0 || user.isAdmin) {
       const newApplicants = request.applicants.filter((applicant) => {
         return applicant !== userName
       })
