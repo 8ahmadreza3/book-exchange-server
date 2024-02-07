@@ -14,8 +14,6 @@ module.exports = async (req, res, next) => {
       printYear,
       createdAt: new Date(),
       applicants: [],
-      getter: '',
-      time: 0,
       conditions,
       description: '',
       status: 'درانتظار تائید'

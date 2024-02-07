@@ -3,8 +3,8 @@ const RequestsModel = require('../../models/requestsModel')
 module.exports = async (req, res, next) => {
   try {
     const { requestId, userName } = req.body
-    const request = await RequestsModel.find({ _id: requestId })
-    if (request.owner === userName) {
+    const request = await RequestsModel.findOne({ _id: requestId })
+    if (request.owner === userName && !request.getter) {
       await RequestsModel.deleteOne({ _id: requestId })
       return res.send({
         success: true,
@@ -25,8 +25,8 @@ module.exports = async (req, res, next) => {
     }
     return res.send({
       success: false,
-      message: 'You are not the owner of this request',
-      message_fa: 'شما مالک این درخواست نیستید'
+      message: 'You can not the delete this request',
+      message_fa: 'شما نمی توانید این درخواست را حذف کنید'
     })
   } catch (error) {
     next(error)
