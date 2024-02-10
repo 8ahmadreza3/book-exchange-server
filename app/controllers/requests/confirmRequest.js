@@ -17,7 +17,7 @@ module.exports = async (req, res, next) => {
     const newApplicants = request.applicants.filter((applicantor) => {
       return applicantor.userName !== userName
     })
-    await RequestsModel.updateOne({ _id: requestId }, { getter: userName, applicants: newApplicants, time, description, status: 'امانت داده شده' })
+    await RequestsModel.updateOne({ _id: requestId }, { getter: userName, applicants: newApplicants, createdAt: new Date(), time, description, status: 'امانت داده شده' })
     res.send({
       success: true,
       message: 'The request was confirmed',
