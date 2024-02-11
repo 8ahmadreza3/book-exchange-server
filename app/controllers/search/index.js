@@ -1,5 +1,7 @@
-const searchAll = require('./searchAll')
+const userSearch = require('./userSearch')
+const adminSearch = require('./adminSearch')
 
 module.exports = {
-  searchAll
+  userSearch,
+  adminSearch
 }

@@ -55,10 +55,8 @@ module.exports = async (req, res, next) => {
         books,
         authors,
         categories,
-        admin: {
-          requests,
-          users
-        }
+        requests,
+        users
       }
     })
   } catch (error) {
