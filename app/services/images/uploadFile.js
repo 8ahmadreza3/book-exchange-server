@@ -10,8 +10,14 @@ module.exports = (fileContent, awsKey) => {
   }
   client.send(new PutObjectCommand(params), (error, data) => {
     if (error) {
-      return error
+      return {
+        success: false,
+        error
+      }
     }
-    return data.$metadata.httpStatusCode
+    return {
+      success: true,
+      status: data.$metadata.httpStatusCode
+    }
   })
 }

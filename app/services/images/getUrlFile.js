@@ -9,9 +9,15 @@ module.exports = (awsKey) => {
   }
   getSignedUrl(client, new GetObjectCommand(params))
     .then(signature => {
-      console.log(signature)
+      return {
+        success: true,
+        signature
+      }
     })
     .catch(error => {
-      return error
+      return {
+        success: false,
+        error
+      }
     })
 }
