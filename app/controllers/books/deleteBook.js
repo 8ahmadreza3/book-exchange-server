@@ -1,4 +1,5 @@
-const booksModel = require('../../models/booksModel')
+const BooksModel = require('../../models/booksModel')
+const AWS = require('../../services/AWS')
 
 module.exports = async (req, res, next) => {
   try {
@@ -10,7 +11,8 @@ module.exports = async (req, res, next) => {
         message_fa: 'کتاب نامعتبر'
       })
     }
-    const { deletedCount } = await booksModel.deleteOne({ address })
+    const { awsKey } = await BooksModel.findOne({ address })
+    const { deletedCount } = await BooksModel.deleteOne({ address })
     if (deletedCount === 0) {
       return res.send({
         success: false,
@@ -18,6 +20,17 @@ module.exports = async (req, res, next) => {
         message_fa: 'کتاب پیدا نشد'
       })
     }
+
+    const remove = AWS.remove(awsKey)
+    if (!remove.success) {
+      return res.send({
+        success: false,
+        message: 'Cloud storage error',
+        message_fa: 'خطای ذخیره سازی ابری',
+        error: remove.error
+      })
+    }
+
     res.send({
       success: true,
       message: 'book deleted',

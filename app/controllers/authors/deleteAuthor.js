@@ -20,6 +20,7 @@ module.exports = async (req, res, next) => {
         message_fa: 'نویسنده یافت نشد'
       })
     }
+
     const remove = AWS.remove(awsKey)
     if (!remove.success) {
       return res.send({
@@ -29,6 +30,7 @@ module.exports = async (req, res, next) => {
         error: remove.error
       })
     }
+
     res.send({
       success: true,
       message: 'The author was removed',
