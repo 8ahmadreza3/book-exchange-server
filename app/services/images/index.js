@@ -1,9 +1,9 @@
-const uploadFile = require('./uploadFile')
-const getUrlFile = require('./getUrlFile')
-const deleteFile = require('./deleteFile')
+const upload = require('./uploadFile')
+const getUrl = require('./getUrlFile')
+const remove = require('./deleteFile')
 
 module.exports = {
-  uploadFile,
-  getUrlFile,
-  deleteFile
+  upload,
+  getUrl,
+  remove
 }

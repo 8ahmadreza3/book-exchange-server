@@ -13,7 +13,8 @@ const requestsSchema = new mongoose.Schema({
   getter: String,
   time: Number,
   description: String,
-  status: { type: String, enum: status }
+  status: { type: String, enum: status },
+  awsKey: String
 })
 
 const requestModel = mongoose.model('Request', requestsSchema)
