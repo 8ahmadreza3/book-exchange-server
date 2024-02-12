@@ -4,7 +4,7 @@ const client = require('./S3.js')
 module.exports = (awsKey) => {
   const params = {
     Bucket: process.env.LIARA_BUCKET_NAME,
-    Key: awsKey
+    Key: `${awsKey}.png`
   }
   client.send(new DeleteObjectCommand(params), (error, data) => {
     if (error) {
