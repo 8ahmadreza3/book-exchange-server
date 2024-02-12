@@ -1,6 +1,7 @@
 const { PutObjectCommand } = require('@aws-sdk/client-s3')
 const client = require('./S3')
 const { v4: uuidv4 } = require('uuid')
+const getUrl = require('./getUrlFile')
 
 module.exports = (fileContent) => {
   const awsKey = uuidv4()
@@ -10,17 +11,14 @@ module.exports = (fileContent) => {
     Key: `${awsKey}.png`
   }
   client.send(new PutObjectCommand(params), (error, data) => {
-    if (error) {
+    if (!error) {
+      const url = getUrl(awsKey).signature
       return {
-        success: false,
+        success: true,
         error,
+        url,
         awsKey
       }
-    }
-    return {
-      success: true,
-      status: data.$metadata.httpStatusCode,
-      awsKey
     }
   })
 }

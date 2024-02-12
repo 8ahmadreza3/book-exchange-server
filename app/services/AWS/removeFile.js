@@ -7,14 +7,10 @@ module.exports = (awsKey) => {
     Key: `${awsKey}.png`
   }
   client.send(new DeleteObjectCommand(params), (error, data) => {
-    if (error) {
+    if (!error) {
       return {
-        success: false,
-        error
+        success: true
       }
-    }
-    return {
-      success: true
     }
   })
 }
