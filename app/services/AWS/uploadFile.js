@@ -12,13 +12,22 @@ module.exports = (fileContent) => {
   }
   client.send(new PutObjectCommand(params), (error, data) => {
     if (!error) {
-      const url = getUrl(awsKey).signature
-      return {
-        success: true,
-        error,
-        url,
-        awsKey
+      const url = getUrl(awsKey)
+      if (!url.success){
+        return {
+          success: true,
+          error,
+          url,
+          awsKey
+        }
       }
+      return url
+    }
+    return {
+      success: false,
+      message: 'Error uploading image',
+      message_fa: 'خطا در آپلود تصویر',
+      error
     }
   })
 }

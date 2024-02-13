@@ -17,6 +17,8 @@ module.exports = (awsKey) => {
     .catch(error => {
       return {
         success: false,
+        message: 'Error getting link',
+        message_fa: 'خطا در گرفتن لینک',
         error
       }
     })

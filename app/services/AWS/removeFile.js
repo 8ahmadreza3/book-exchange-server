@@ -9,8 +9,14 @@ module.exports = (awsKey) => {
   client.send(new DeleteObjectCommand(params), (error, data) => {
     if (!error) {
       return {
-        success: true
+        success: true,
       }
+    }
+    return {
+      success: false,
+      message: 'image was not deleted',
+      message_fa: 'عکس پاک نشد',
+      error
     }
   })
 }

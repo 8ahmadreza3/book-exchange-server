@@ -5,3 +5,4 @@ nodemon.json
 logfile.log
 *.log
 .vscode
+.VSCodeCounter
