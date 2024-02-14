@@ -2,15 +2,15 @@ const BooksModel = require('../../models/booksModel')
 
 module.exports = async (req, res, next) => {
   try {
-    const { address } = req.params
-    if (!address) {
+    const { bookID } = req.params
+    if (!bookID) {
       return res.status(404).send({
         success: false,
         message: 'Invalid book',
         message_fa: 'کتاب نامعتبر'
       })
     }
-    const { n, nModified } = await BooksModel.updateOne({ address }, { ...req.body })
+    const { n, nModified } = await BooksModel.updateOne({ _id: bookID }, { ...req.body })
     if (n === 0 || nModified === 0) {
       return res.status(404).send({
         success: true,

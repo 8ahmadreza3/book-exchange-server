@@ -3,16 +3,16 @@ const AWS = require('../../services/AWS')
 
 module.exports = async (req, res, next) => {
   try {
-    const { address } = req.params
-    if (!address) {
+    const { bookID } = req.params
+    if (!bookID) {
       return res.status(404).send({
         success: false,
         message: 'Invalid book',
         message_fa: 'کتاب نامعتبر'
       })
     }
-    const { awsKey } = await BooksModel.findOne({ address })
-    const { deletedCount } = await BooksModel.deleteOne({ address })
+    const { awsKey } = await BooksModel.findOne({ bookID })
+    const { deletedCount } = await BooksModel.deleteOne({ bookID })
     if (deletedCount === 0) {
       return res.send({
         success: false,
