@@ -1,4 +1,5 @@
-const UserModel = require('../../models/usersModel')
+const UsersModel = require('../../models/usersModel')
+// const AWS = require('../../services/AWS')
 
 module.exports = async (req, res, next) => {
   try {
@@ -10,7 +11,8 @@ module.exports = async (req, res, next) => {
         message_fa: 'کاربر نامعتبر'
       })
     }
-    const { deletedCount } = await UserModel.deleteOne({ userName })
+    // const { awsKey } = await UsersModel.findOne({ userName })
+    const { deletedCount } = await UsersModel.deleteOne({ userName })
     if (deletedCount === 0) {
       return res.send({
         success: false,
@@ -18,6 +20,12 @@ module.exports = async (req, res, next) => {
         message_fa: 'کاربر پیدا نشد'
       })
     }
+
+    // const remove = AWS.remove(awsKey)
+    // if (!remove.success) {
+    //   return res.send(remove)
+    // }
+
     res.send({
       success: true,
       message: 'User deleted',
