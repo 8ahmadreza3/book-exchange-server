@@ -1,5 +1,6 @@
 const RequestsModel = require('../../models/requestsModel')
 const UsersModel = require('../../models/usersModel')
+const AWS = require('../../services/AWS')
 
 module.exports = async (req, res, next) => {
   try {
@@ -8,6 +9,12 @@ module.exports = async (req, res, next) => {
     const user = await UsersModel.findOne({ userName })
     if ((request.owner === userName && !request.getter) || user.isAdmin) {
       await RequestsModel.deleteOne({ _id: requestId })
+
+      const remove = AWS.remove(request.awsKey)
+      if (!remove.success) {
+        return res.send(remove)
+      }
+
       return res.send({
         success: true,
         message: 'Request was removed by the owner of the book',

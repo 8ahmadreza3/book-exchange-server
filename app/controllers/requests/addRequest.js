@@ -1,4 +1,5 @@
 const RequestModel = require('../../models/requestsModel')
+const AWS = require('../../services/AWS')
 
 module.exports = async (req, res, next) => {
   try {
@@ -8,14 +9,21 @@ module.exports = async (req, res, next) => {
       conditions,
       printYear
     } = req.body
+
+    const upload = AWS.upload(req.files.image)
+    if (!upload.success) {
+      return res.send(upload)
+    }
+
     const newRequest = new RequestModel({
       owner,
       book,
       printYear,
+      img: upload.url,
+      awsKey: upload.awsKey,
       createdAt: new Date(),
       applicants: [],
       conditions,
-      description: '',
       status: 'درانتظار تائید'
     })
     await newRequest.save()
