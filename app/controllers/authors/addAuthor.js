@@ -7,12 +7,7 @@ module.exports = async (req, res, next) => {
 
     const upload = AWS.upload(req.files.image)
     if (!upload.success) {
-      return res.send({
-        success: false,
-        message: 'Cloud storage error',
-        message_fa: 'خطای ذخیره سازی ابری',
-        error: upload.error
-      })
+      return res.send(upload)
     }
 
     const newAuthor = new AuthorsModel({

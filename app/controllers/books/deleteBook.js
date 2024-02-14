@@ -23,12 +23,7 @@ module.exports = async (req, res, next) => {
 
     const remove = AWS.remove(awsKey)
     if (!remove.success) {
-      return res.send({
-        success: false,
-        message: 'Cloud storage error',
-        message_fa: 'خطای ذخیره سازی ابری',
-        error: remove.error
-      })
+      return res.send(remove)
     }
 
     res.send({
