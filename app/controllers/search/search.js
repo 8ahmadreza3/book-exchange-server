@@ -7,6 +7,7 @@ const UsersModel = require('../../models/usersModel')
 module.exports = async (req, res, next) => {
   try {
     const { keyWord } = req.params
+    const { isAdmin } = req.body
     if (!keyWord) {
       return res.send({
         success: false,
@@ -32,6 +33,18 @@ module.exports = async (req, res, next) => {
         { name: { $regex: `${keyWord}`, $options: 'i' } }
       ]
     })
+    if (!isAdmin) {
+      res.status(201).send({
+        success: true,
+        message: 'new author The search was done in all databases',
+        message_fa: 'جستجو در تمامی پایگاه داده انجام شد',
+        data: {
+          books,
+          authors,
+          categories
+        }
+      })
+    }
     const requests = RequestsModel.find({
       $or: [
         { owner: { $regex: `${keyWord}`, $options: 'i' } },
