@@ -2,15 +2,15 @@ const CategoriesModel = require('../../models/categoriesModel')
 
 module.exports = async (req, res, next) => {
   try {
-    const { category } = req.params
-    if (!category) {
+    const { address } = req.params
+    if (!address) {
       return res.status(404).send({
         success: false,
         message: 'Invalid category',
         message_fa: 'دسته نامعتبر'
       })
     }
-    const { n, nModified } = await CategoriesModel.updateOne({ address: category }, { ...req.body })
+    const { n, nModified } = await CategoriesModel.updateOne({ address }, { ...req.body })
     if (n === 0 || nModified === 0) {
       return res.status(404).send({
         success: true,
