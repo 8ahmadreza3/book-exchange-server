@@ -9,9 +9,7 @@ module.exports = async (req, res, next) => {
       success: true,
       message: 'Authentication code sent',
       message_fa: 'کد احراز هویت ارسال شد',
-      data: {
-        authCode
-      }
+      authCode
     })
   } catch (error) {
     next(error)

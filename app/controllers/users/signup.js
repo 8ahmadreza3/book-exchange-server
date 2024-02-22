@@ -5,7 +5,7 @@ const hashServices = require('../../services/dateService')
 module.exports = async (req, res, next) => {
   try {
     const {
-      Name,
+      name,
       userName,
       phone,
       state,
@@ -37,7 +37,7 @@ module.exports = async (req, res, next) => {
 
     const hashPassword = hashServices.hashPassword(password)
     const newUser = new UserModel({
-      Name,
+      name,
       userName,
       phone,
       state,

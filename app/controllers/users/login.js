@@ -4,8 +4,8 @@ const hashService = require('../../services/hashService')
 
 module.exports = async (req, res, next) => {
   try {
-    const { userName, password, phone } = req.body
-    const user = await UserModel.findOne({ $or: [{ userName }, { phone }] })
+    const { userAuth, password } = req.body
+    const user = await UserModel.findOne({ $or: [{ userName: userAuth }, { phone: userAuth }] })
     if (!user) {
       return res.status(404).send({
         success: false,
