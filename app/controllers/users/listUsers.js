@@ -2,7 +2,8 @@ const UserModel = require('../../models/usersModel')
 
 module.exports = async (req, res, next) => {
   try {
-    const users = await UserModel.find(req.body, { password: 0 })
+    const filter = req.body ? req.body : {}
+    const users = await UserModel.find(filter)
     res.send({
       success: true,
       message: 'users  found',

@@ -2,7 +2,8 @@ const BooksModel = require('../../models/booksModel')
 
 module.exports = async (req, res, next) => {
   try {
-    const books = await BooksModel.find(req.body)
+    const filter = req.body ? req.body : {}
+    const books = await BooksModel.find(filter)
     res.send({
       success: true,
       message: 'Found successfully',

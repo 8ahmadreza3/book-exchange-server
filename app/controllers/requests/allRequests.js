@@ -3,7 +3,8 @@ const dateService = require('../../services/dateService')
 
 module.exports = async (req, res, next) => {
   try {
-    const requests = await RequestsModel.find(req.body)
+    const filter = req.body ? req.body : {}
+    const requests = await RequestsModel.find(filter)
     const presentedRequests = requests.map(request => {
       request.createdAt_persian = dateService.toPersianDate(request.createdAt)
       return request

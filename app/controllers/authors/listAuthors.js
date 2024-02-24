@@ -2,7 +2,8 @@ const AuthorModel = require('../../models/authorsModel')
 
 module.exports = async (req, res, next) => {
   try {
-    const authors = await AuthorModel.find(req.body)
+    const filter = req.body ? req.body : {}
+    const authors = await AuthorModel.find(filter)
     res.send({
       success: true,
       message: 'List of authors found',

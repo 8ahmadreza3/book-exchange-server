@@ -2,7 +2,8 @@ const CategoriesModel = require('../../models/categoriesModel')
 
 module.exports = async (req, res, next) => {
   try {
-    const categories = await CategoriesModel.find({}, { address: 0 })
+    const filter = req.body ? req.body : {}
+    const categories = await CategoriesModel.find(filter)
     res.send({
       success: true,
       message: 'categories found',

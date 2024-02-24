@@ -5,7 +5,8 @@ module.exports = async (req, res, next) => {
     const { name, address } = req.body
     const newCategory = new CategoriesModel({
       name,
-      address
+      address,
+      isRecommend: false
     })
     await newCategory.save()
     res.status(201).send({
