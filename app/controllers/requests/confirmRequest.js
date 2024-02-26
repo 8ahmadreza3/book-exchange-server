@@ -2,8 +2,8 @@ const RequestsModel = require('../../models/requestsModel')
 
 module.exports = async (req, res, next) => {
   try {
-    const { requestId, userName } = req.body
-    const request = await RequestsModel.findOne({ _id: requestId })
+    const { _id, userName } = req.body
+    const request = await RequestsModel.findOne({ _id })
     const { applicantor, time, description } = request.applicants.find((applicantor) => {
       return applicantor.userName === userName
     })
@@ -17,7 +17,7 @@ module.exports = async (req, res, next) => {
     const newApplicants = request.applicants.filter((applicantor) => {
       return applicantor.userName !== userName
     })
-    await RequestsModel.updateOne({ _id: requestId }, { getter: userName, applicants: newApplicants, createdAt: new Date(), time, description, status: 'امانت داده شده' })
+    await RequestsModel.updateOne({ _id }, { getter: userName, applicants: newApplicants, createdAt: new Date(), time, description, status: 'امانت داده شده' })
     res.send({
       success: true,
       message: 'The request was confirmed',

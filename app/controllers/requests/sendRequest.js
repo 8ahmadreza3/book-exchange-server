@@ -2,12 +2,7 @@ const RequestsModel = require('../../models/requestsModel')
 
 module.exports = async (req, res, next) => {
   try {
-    const {
-      requestId,
-      userName,
-      time,
-      description
-    } = req.body
+    const { requestId, userName, time, description } = req.body
     const newApplicantor = [{ userName, time, description }]
     const pre = await RequestsModel.findOne({ _id: requestId }, { _id: 0 })
     const newApplicants = [...pre.applicants, ...newApplicantor]

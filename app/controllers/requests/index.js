@@ -6,6 +6,7 @@ const deleteRequest = require('./deleteRequest')
 const confirmRequest = require('./confirmRequest')
 const adminConfirmRequest = require('./adminConfirmRequest')
 const doneRequest = require('./doneRequest')
+const updateRequest = require('./updateRequest')
 
 module.exports = {
   allRequests,
@@ -15,5 +16,6 @@ module.exports = {
   deleteRequest,
   confirmRequest,
   adminConfirmRequest,
-  doneRequest
+  doneRequest,
+  updateRequest
 }
