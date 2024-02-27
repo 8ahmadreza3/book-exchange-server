@@ -4,6 +4,9 @@ const status = ['درانتظار تائید', 'امانت داده شده', 'پ
 const requestsSchema = new mongoose.Schema({
   owner: String,
   book: String,
+  state: String,
+  city: String,
+  phone: String,
   img: String,
   printYear: Number,
   publisher: String,

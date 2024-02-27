@@ -1,5 +1,6 @@
 const AuthorsModel = require('../../models/authorsModel')
 const BooksModel = require('../../models/booksModel')
+const RequestsModel = require('../../models/requestsModel')
 
 module.exports = async (req, res, next) => {
   try {
@@ -19,14 +20,16 @@ module.exports = async (req, res, next) => {
         message_fa: 'کتاب نامعتبر'
       })
     }
-    const bookAuthor = await AuthorsModel.findOne({ name: book.author })
+    const author = await AuthorsModel.findOne({ name: book.author })
+    const requests = await RequestsModel.find({ book: book.name })
     res.send({
       success: true,
       message: 'book information found',
       message_fa: 'اطلاعات کتاب پیدا شد',
       data: {
         book,
-        author: bookAuthor
+        author,
+        requests
       }
     })
   } catch (error) {

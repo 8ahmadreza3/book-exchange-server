@@ -1,4 +1,5 @@
 const RequestModel = require('../../models/requestsModel')
+const UsersModel = require('../../models/usersModel')
 const AWS = require('../../services/AWS')
 
 module.exports = async (req, res, next) => {
@@ -10,10 +11,14 @@ module.exports = async (req, res, next) => {
       return res.send(upload)
     }
 
+    const user = await UsersModel.findOne({ userName: owner })
     const newRequest = new RequestModel({
       owner,
       book,
       printYear,
+      state: user.state,
+      city: user.city,
+      phone: user.phone,
       img: upload.url,
       awsKey: upload.awsKey,
       createdAt: new Date(),
