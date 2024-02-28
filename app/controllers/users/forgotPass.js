@@ -3,9 +3,9 @@ const hashServices = require('../../services/dateService')
 
 module.exports = async (req, res, next) => {
   try {
-    const { userName } = req.params
+    const { userAuth } = req.params
     const { password } = req.body
-    if (!userName) {
+    if (!userAuth) {
       return res.status(404).send({
         success: false,
         message: 'Invalid User',
@@ -13,7 +13,7 @@ module.exports = async (req, res, next) => {
       })
     }
     const hashPassword = hashServices.hashPassword(password)
-    const { n, nModified } = await UserModel.updateOne({ password: hashPassword })
+    const { n, nModified } = await UserModel.updateOne({ $or: [{ userName: userAuth }, { phone: userAuth }] }, { password: hashPassword })
     if (n === 0 || nModified === 0) {
       return res.status(404).send({
         success: false,
