@@ -4,14 +4,7 @@ const hashServices = require('../../services/dateService')
 
 module.exports = async (req, res, next) => {
   try {
-    const {
-      name,
-      userName,
-      phone,
-      state,
-      city,
-      password
-    } = req.body
+    const { name, userName, phone, state, city, password } = req.body
     const samePhone = UserModel.findOne({ phone })
     if (samePhone) {
       return res.send({
