@@ -20,13 +20,13 @@ module.exports = async (req, res, next) => {
         message_fa: 'رمز یا نام کاربری/شماره اشتباه است'
       })
     }
-    const token = tokenService.sign({ id: user._id })
+    const token = tokenService.sign({ userName: user.userName, phone: user.phone, _id: user._id })
     res.send({
       success: true,
       message: 'Login was successful',
       message_fa: 'ورود با موفقیت انجام شد',
       data: {
-        token,
+        token: 'Bearer' + token,
         user
       }
     })

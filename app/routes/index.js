@@ -3,7 +3,7 @@ const booksRouter = require('./books')
 const authorsRouter = require('./authors')
 const usersRouter = require('./users')
 const requestsRouter = require('./requests')
-const authSMSRouter = require('./authSMS')
+const authRouter = require('./auth')
 const searchRouter = require('./search')
 
 module.exports = (app) => {
@@ -12,6 +12,6 @@ module.exports = (app) => {
   app.use('/books', booksRouter)
   app.use('/authors', authorsRouter)
   app.use('/requests', requestsRouter)
-  app.use('/sms', authSMSRouter)
+  app.use('/sms', authRouter)
   app.use('/search', searchRouter)
 }
