@@ -1,4 +1,6 @@
 const BooksModel = require('../../models/booksModel')
+const AuthorsModel = require('../../models/authorsModel')
+const CategoriesModel = require('../../models/categoriesModel')
 const AWS = require('../../services/AWS')
 
 module.exports = async (req, res, next) => {
@@ -10,10 +12,18 @@ module.exports = async (req, res, next) => {
       return res.send(upload)
     }
 
+    const categoryAddress = await CategoriesModel.findOne({ name: category })
+    const authorAddress = await AuthorsModel.findOne({ name: author })
     const newBook = new BooksModel({
       name,
-      author,
-      category,
+      author: {
+        name: author,
+        address: authorAddress.length > 0 ? authorAddress : ''
+      },
+      category: {
+        name: category,
+        address: categoryAddress.length > 0 ? categoryAddress : ''
+      },
       info,
       address,
       img: upload.url,
