@@ -12,6 +12,6 @@ module.exports = (app) => {
   app.use('/books', booksRouter)
   app.use('/authors', authorsRouter)
   app.use('/requests', requestsRouter)
-  app.use('/sms', authRouter)
+  app.use('/auth', authRouter)
   app.use('/search', searchRouter)
 }

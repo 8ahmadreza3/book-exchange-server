@@ -3,7 +3,7 @@ const router = express.Router()
 const authController = require('../controllers/auth')
 
 router.get('/:phone', authController.confirm)
-router.get('/', authController.authToken)
+router.get('/token/', authController.authToken)
 router.patch('/:phone', authController.forgotPass)
 
 module.exports = router
