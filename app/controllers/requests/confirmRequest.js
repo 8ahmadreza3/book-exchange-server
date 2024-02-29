@@ -14,10 +14,7 @@ module.exports = async (req, res, next) => {
         message_fa: 'درخواست تائید نشد'
       })
     }
-    const newApplicants = request.applicants.filter((applicantor) => {
-      return applicantor.userName !== userName
-    })
-    await RequestsModel.updateOne({ _id }, { getter: userName, applicants: newApplicants, createdAt: new Date(), time, description, status: 'امانت داده شده' })
+    await RequestsModel.updateOne({ _id }, { getter: userName, createdAt: new Date(), time, description, status: 'امانت داده شده' })
     res.send({
       success: true,
       message: 'The request was confirmed',
