@@ -12,9 +12,13 @@ const requestsSchema = new mongoose.Schema({
   publisher: String,
   conditions: String,
   createdAt: Date,
-  applicants: Array,
+  applicants: [{
+    userName: String,
+    description: String,
+    time: String
+  }],
   getter: String,
-  time: Number,
+  time: String,
   description: String,
   status: { type: String, enum: status },
   awsKey: String
