@@ -5,6 +5,13 @@ const AWS = require('../../services/AWS')
 module.exports = async (req, res, next) => {
   try {
     const { owner, book, conditions, printYear } = req.body
+    if (!owner && !book) {
+      res.send({
+        success: false,
+        message: 'Enter the information in full',
+        message_fa: 'اطلاعات با به صورت کامل وارد کنید'
+      })
+    }
 
     const upload = AWS.upload(req.files.image)
     if (!upload.success) {

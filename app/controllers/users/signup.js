@@ -5,6 +5,13 @@ const hashServices = require('../../services/dateService')
 module.exports = async (req, res, next) => {
   try {
     const { name, userName, phone, state, city, password } = req.body
+    if (!name && !userName) {
+      res.send({
+        success: false,
+        message: 'Enter the information in full',
+        message_fa: 'اطلاعات با به صورت کامل وارد کنید'
+      })
+    }
     const samePhone = UserModel.findOne({ phone })
     if (samePhone) {
       return res.send({
