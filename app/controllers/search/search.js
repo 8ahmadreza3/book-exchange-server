@@ -6,7 +6,7 @@ const UsersModel = require('../../models/usersModel')
 
 module.exports = async (req, res, next) => {
   try {
-    const { keyWord } = req.params
+    let { keyWord } = req.params
     const { isAdmin } = req.body
     if (!keyWord) {
       return res.send({
@@ -15,6 +15,7 @@ module.exports = async (req, res, next) => {
         message_fa: 'کلمه کلیدی یافت نشد'
       })
     }
+    keyWord = keyWord.replaceAll('_', ' ')
     const books = BooksModel.find({
       $or: [
         { name: { $regex: `${keyWord}`, $options: 'i' } },
