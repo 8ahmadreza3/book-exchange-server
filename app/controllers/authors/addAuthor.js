@@ -1,5 +1,5 @@
 const AuthorsModel = require('../../models/authorsModel')
-const AWS = require('../../services/AWS')
+// const AWS = require('../../services/AWS')
 
 module.exports = async (req, res, next) => {
   try {
@@ -11,20 +11,20 @@ module.exports = async (req, res, next) => {
         message_fa: 'اطلاعات با به صورت کامل وارد کنید'
       })
     }
-
-    const upload = AWS.upload(req.files.image)
-    if (!upload.success) {
-      return res.send(upload)
-    }
+    // TODO
+    // const upload = AWS.upload(req.files.image)
+    // if (!upload.success) {
+    //   return res.send(upload)
+    // }
 
     const newAuthor = new AuthorsModel({
       name,
       birthYear,
       deadYear,
       biography,
-      address,
-      img: upload.url,
-      awsKey: upload.awsKey
+      address
+      // img: upload.url,
+      // awsKey: upload.awsKey
     })
     await newAuthor.save()
     res.status(201).send({
