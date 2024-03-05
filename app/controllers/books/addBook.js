@@ -6,30 +6,25 @@ const CategoriesModel = require('../../models/categoriesModel')
 module.exports = async (req, res, next) => {
   try {
     const { name, author, category, info, address } = req.body
-    if (!name && !address) {
-      res.send({
-        success: false,
-        message: 'Enter the information in full',
-        message_fa: 'اطلاعات با به صورت کامل وارد کنید'
-      })
-    }
     // TODO
     // const upload = AWS.upload(req.files.image)
     // if (!upload.success) {
     //   return res.send(upload)
     // }
 
-    const categoryAddress = await CategoriesModel.findOne({ name: category })
-    const authorAddress = await AuthorsModel.findOne({ name: author })
+    let categoryAddress = await CategoriesModel.findOne({ name: category }).address
+    let authorAddress = await AuthorsModel.findOne({ name: author }).address
+    categoryAddress = categoryAddress || ''
+    authorAddress = authorAddress || ''
     const newBook = new BooksModel({
       name,
       author: {
         name: author,
-        address: authorAddress.length > 0 ? authorAddress : ''
+        address: authorAddress
       },
       category: {
         name: category,
-        address: categoryAddress.length > 0 ? categoryAddress : ''
+        address: categoryAddress
       },
       info,
       address
