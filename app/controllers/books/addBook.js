@@ -1,34 +1,34 @@
 const BooksModel = require('../../models/booksModel')
 const AuthorsModel = require('../../models/authorsModel')
 const CategoriesModel = require('../../models/categoriesModel')
-// const AWS = require('../../services/AWS')
+const AWS = require('../../services/AWS')
 
 module.exports = async (req, res, next) => {
   try {
     const { name, author, category, info } = req.body
-    // TODO
-    // const upload = AWS.upload(req.files.image)
-    // if (!upload.success) {
-    //   return res.send(upload)
-    // }
+    let upload
+    if (req.files.image) {
+      upload = AWS.upload(req.files.image)
+      if (!upload.success) {
+        return res.send(upload)
+      }
+    }
 
-    let categoryAddress = await CategoriesModel.findOne({ name: category }).address
-    let authorAddress = await AuthorsModel.findOne({ name: author }).address
-    categoryAddress = categoryAddress || ''
-    authorAddress = authorAddress || ''
+    const categoryAddress = await CategoriesModel.findOne({ name: category }).address
+    const authorAddress = await AuthorsModel.findOne({ name: author }).address
     const newBook = new BooksModel({
       name,
       author: {
         name: author,
-        address: authorAddress
+        address: authorAddress || ''
       },
       category: {
         name: category,
-        address: categoryAddress
+        address: categoryAddress || ''
       },
-      info
-      // img: upload.url,
-      // awsKey: upload.awsKey
+      info,
+      img: upload.url || '',
+      awsKey: upload.awsKey || ''
     })
     await newBook.save()
     res.status(201).send({

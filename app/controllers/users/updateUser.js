@@ -1,8 +1,19 @@
-const UserModel = require('../../models/usersModel')
+const UsersModel = require('../../models/usersModel')
 
 module.exports = async (req, res, next) => {
   try {
     const { userName } = req.params
+    if (req.body.userName) {
+      req.body.address = req.body.address.replaceAll(' ', '_')
+      const sameUserName = await UsersModel.findOne({ userName: req.body.userName })
+      if (sameUserName) {
+        res.send({
+          success: false,
+          message: 'This address is duplicate',
+          message_fa: 'این آدرس تکراری است'
+        })
+      }
+    }
     if (!userName) {
       return res.status(404).send({
         success: false,
@@ -10,7 +21,7 @@ module.exports = async (req, res, next) => {
         message_fa: 'کاربر نامعتبر'
       })
     }
-    const { n, nModified } = await UserModel.updateOne({ userName }, { ...req.body })
+    const { n, nModified } = await UsersModel.updateOne({ userName }, { ...req.body })
     if (n === 0 || nModified === 0) {
       return res.status(404).send({
         success: false,
