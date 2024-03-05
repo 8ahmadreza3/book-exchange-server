@@ -5,7 +5,7 @@ const CategoriesModel = require('../../models/categoriesModel')
 
 module.exports = async (req, res, next) => {
   try {
-    const { name, author, category, info, address } = req.body
+    const { name, author, category, info } = req.body
     // TODO
     // const upload = AWS.upload(req.files.image)
     // if (!upload.success) {
@@ -26,8 +26,7 @@ module.exports = async (req, res, next) => {
         name: category,
         address: categoryAddress
       },
-      info,
-      address
+      info
       // img: upload.url,
       // awsKey: upload.awsKey
     })

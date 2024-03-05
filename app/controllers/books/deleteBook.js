@@ -8,22 +8,23 @@ module.exports = async (req, res, next) => {
       return res.status(404).send({
         success: false,
         message: 'Invalid book',
-        message_fa: 'کتاب نامعتبر'
+        message_fa: 'کتاب نامعتبر',
+        bookID
       })
     }
-    const { awsKey } = await BooksModel.findOne({ bookID })
-    const { deletedCount } = await BooksModel.deleteOne({ bookID })
-    if (deletedCount === 0) {
+    const book = await BooksModel.findByIdAndDelete(bookID)
+    if (!book) {
       return res.send({
         success: false,
         message: 'book not found',
         message_fa: 'کتاب پیدا نشد'
       })
     }
-
-    const remove = AWS.remove(awsKey)
-    if (!remove.success) {
-      return res.send(remove)
+    if (book.awsKey.length > 0) {
+      const remove = AWS.remove(book.awsKey)
+      if (!remove.success) {
+        return res.send(remove)
+      }
     }
 
     res.send({
