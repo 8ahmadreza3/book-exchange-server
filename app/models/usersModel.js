@@ -1,15 +1,15 @@
 const mongoose = require('mongoose')
 
 const usersSchema = new mongoose.Schema({
-  name: { type: String, minlength: 3 },
-  userName: { type: String, unique: true, minlength: 3 },
+  name: { type: String, minlength: 4 },
+  userName: { type: String, unique: true, minlength: 4 },
   phone: { type: String, unique: true },
-  img: String,
-  state: String,
-  city: String,
+  img: { type: String, default: '' },
+  state: { type: String, default: '' },
+  city: { type: String, default: '' },
   isAdmin: { type: Boolean, default: false },
   password: String,
-  awsKey: String
+  awsKey: { type: String, default: '' }
 })
 const userModel = mongoose.model('User', usersSchema)
 

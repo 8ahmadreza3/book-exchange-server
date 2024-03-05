@@ -7,21 +7,21 @@ const requestsSchema = new mongoose.Schema({
   state: String,
   city: String,
   phone: String,
-  img: String,
+  img: { type: String, default: '' },
   printYear: Number,
   publisher: String,
-  conditions: String,
+  conditions: { type: String, default: '' },
   createdAt: Date,
   applicants: [{
     userName: String,
-    description: String,
+    description: { type: String, default: '' },
     time: String
   }],
-  getter: String,
-  time: String,
-  description: String,
+  getter: { type: String, default: '' },
+  time: { type: String, default: '' },
+  description: { type: String, default: '' },
   status: { type: String, enum: status },
-  awsKey: String
+  awsKey: { type: String, default: '' }
 })
 
 const requestModel = mongoose.model('Request', requestsSchema)

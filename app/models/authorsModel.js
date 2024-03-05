@@ -1,14 +1,14 @@
 const mongoose = require('mongoose')
 
 const authorSchema = new mongoose.Schema({
-  name: { type: String, minlength: 3 },
+  name: { type: String, minlength: 4 },
   birthYear: Number,
   deadYear: { type: Number, default: -1 },
-  bioGraphy: String,
-  img: String,
+  bioGraphy: { type: String, default: '' },
+  img: { type: String, default: '' },
   address: { type: String, unique: true },
   isRecommend: { type: Boolean, default: false },
-  awsKey: String
+  awsKey: { type: String, default: '' }
 })
 
 const authorModel = mongoose.model('Author', authorSchema)

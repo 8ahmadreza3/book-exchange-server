@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 const categoriesSchema = new mongoose.Schema({
   name: {
     type: String,
-    minlength: 3
+    minlength: 4
   },
   address: { type: String, unique: true },
   isRecommend: { type: Boolean, default: false }

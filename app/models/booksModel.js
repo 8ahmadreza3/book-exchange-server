@@ -10,11 +10,11 @@ const booksSchema = new mongoose.Schema({
     name: String,
     address: { type: String, default: '' }
   },
-  info: String,
-  img: String,
-  address: { type: String, unique: true },
+  info: { type: String, default: '' },
+  img: { type: String, default: '' },
+  address: { type: String, default: '' },
   isRecommend: { type: Boolean, default: false },
-  awsKey: String
+  awsKey: { type: String, default: '' }
 })
 
 const BooksModel = mongoose.model('Books', booksSchema)
