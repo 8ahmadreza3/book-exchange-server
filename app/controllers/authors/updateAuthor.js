@@ -10,6 +10,7 @@ module.exports = async (req, res, next) => {
         message_fa: 'نویسنده یافت نشد'
       })
     }
+    req.body.address = req.body.address ? req.body.address.replaceAll(' ', '_') : null
     const { n, nModified } = await AuthorModel.updateOne({ address }, { ...req.body })
     if (n === 0 || nModified === 0) {
       return res.status(404).send({

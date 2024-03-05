@@ -10,14 +10,16 @@ module.exports = async (req, res, next) => {
         message_fa: 'کتاب نامعتبر'
       })
     }
-    req.body.address = req.body.address.replaceAll(' ', '_')
-    const sameAddress = await BooksModel.findById(bookID)
-    if (sameAddress) {
-      res.send({
-        success: false,
-        message: 'This address is duplicate',
-        message_fa: 'این آدرس تکراری است'
-      })
+    if (req.body.address) {
+      req.body.address = req.body.address.replaceAll(' ', '_')
+      const sameAddress = await BooksModel.findOne({ address: req.body.address })
+      if (sameAddress) {
+        res.send({
+          success: false,
+          message: 'This address is duplicate',
+          message_fa: 'این آدرس تکراری است'
+        })
+      }
     }
     const { n, nModified } = await BooksModel.updateOne({ _id: bookID }, { ...req.body })
     if (n === 0 || nModified === 0) {

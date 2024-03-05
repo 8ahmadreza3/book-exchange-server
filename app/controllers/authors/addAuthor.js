@@ -22,7 +22,7 @@ module.exports = async (req, res, next) => {
       birthYear,
       deadYear,
       biography,
-      address
+      address: address.replaceAll(' ', '_')
       // img: upload.url,
       // awsKey: upload.awsKey
     })
