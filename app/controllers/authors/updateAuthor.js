@@ -1,4 +1,4 @@
-const AuthorModel = require('../../models/authorsModel')
+const AuthorsModel = require('../../models/authorsModel')
 
 module.exports = async (req, res, next) => {
   try {
@@ -10,8 +10,18 @@ module.exports = async (req, res, next) => {
         message_fa: 'نویسنده یافت نشد'
       })
     }
-    req.body.address = req.body.address ? req.body.address.replaceAll(' ', '_') : null
-    const { n, nModified } = await AuthorModel.updateOne({ address }, { ...req.body })
+    if (req.body.address) {
+      req.body.address = req.body.address.replaceAll(' ', '_')
+      const sameAddress = await AuthorsModel.findOne({ address: req.body.address })
+      if (sameAddress) {
+        res.send({
+          success: false,
+          message: 'This address is duplicate',
+          message_fa: 'این آدرس تکراری است'
+        })
+      }
+    }
+    const { n, nModified } = await AuthorsModel.updateOne({ address }, { ...req.body })
     if (n === 0 || nModified === 0) {
       return res.status(404).send({
         success: false,

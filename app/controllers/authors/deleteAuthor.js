@@ -11,21 +11,20 @@ module.exports = async (req, res, next) => {
         message_fa: 'آدرس نامعتبر'
       })
     }
-    const { awsKey } = await AuthorsModel.findOne({ address })
-    const { deletedCount } = await AuthorsModel.deleteOne({ address })
-    if (deletedCount === 0) {
+    const author = await AuthorsModel.findOneAndDelete({ address })
+    if (author) {
       return res.send({
         success: false,
         message: 'Author not found',
         message_fa: 'نویسنده یافت نشد'
       })
     }
-
-    const remove = AWS.remove(awsKey)
-    if (!remove.success) {
-      return res.send(remove)
+    if (author.awsKey) {
+      const remove = AWS.remove(author.awsKey)
+      if (!remove.success) {
+        return res.send(remove)
+      }
     }
-
     res.send({
       success: true,
       message: 'The author was removed',

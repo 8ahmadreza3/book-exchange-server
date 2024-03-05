@@ -13,7 +13,7 @@ module.exports = (fileContent) => {
   client.send(new PutObjectCommand(params), (error, data) => {
     if (!error) {
       const url = getUrl(awsKey)
-      if (!url.success){
+      if (url.success) {
         return {
           success: true,
           error,

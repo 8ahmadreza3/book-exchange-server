@@ -1,6 +1,6 @@
 const UserModel = require('../../models/usersModel')
 const hashServices = require('../../services/dateService')
-// const AWS = require('../../services/AWS')
+const AWS = require('../../services/AWS')
 
 module.exports = async (req, res, next) => {
   try {
@@ -28,22 +28,25 @@ module.exports = async (req, res, next) => {
         message_fa: 'لطفا نام کاربری دیگری انتخاب کنید'
       })
     }
-
-    // TODO
-    // const upload = AWS.upload(req.files.image)
-    // if (!upload.success) {
-    //   return res.send(upload)
-    // }
+    let upload
+    if (req.files.image) {
+      upload = AWS.upload(req.files.image)
+      if (!upload.success) {
+        return res.send(upload)
+      }
+    }
 
     const hashPassword = hashServices.hashPassword(password)
     const newUser = new UserModel({
       name,
-      userName,
+      userName: userName.replaceAll(' ', '_'),
       phone,
       state,
       city,
       isAdmin: false,
-      password: hashPassword
+      password: hashPassword,
+      image: upload.url || '',
+      awsKey: upload.awsKey || ''
     })
     await newUser.save()
     res.status(201).send({
