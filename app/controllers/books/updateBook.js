@@ -14,7 +14,7 @@ module.exports = async (req, res, next) => {
       req.body.address = req.body.address.replaceAll(' ', '_')
       const sameAddress = await BooksModel.findOne({ address: req.body.address })
       if (sameAddress) {
-        res.send({
+        return res.send({
           success: false,
           message: 'This address is duplicate',
           message_fa: 'این آدرس تکراری است'

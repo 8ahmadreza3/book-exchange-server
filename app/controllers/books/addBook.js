@@ -7,7 +7,7 @@ module.exports = async (req, res, next) => {
   try {
     const { name, author, category, info } = req.body
     let upload
-    if (req.files.image) {
+    if (req.files) {
       upload = AWS.upload(req.files.image)
       if (!upload.success) {
         return res.send(upload)

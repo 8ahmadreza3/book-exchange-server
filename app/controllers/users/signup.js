@@ -1,4 +1,4 @@
-const UserModel = require('../../models/usersModel')
+const UsersModel = require('../../models/usersModel')
 const hashServices = require('../../services/dateService')
 const AWS = require('../../services/AWS')
 
@@ -12,20 +12,12 @@ module.exports = async (req, res, next) => {
         message_fa: 'اطلاعات با به صورت کامل وارد کنید'
       })
     }
-    const samePhone = UserModel.findOne({ phone })
-    if (samePhone) {
+    const same = UsersModel.findOne({ $or: [{ phone, userName }] })
+    if (same) {
       return res.send({
         success: false,
         message: 'try another phoneNumber',
-        message_fa: 'این شماره موبایل قبلا ثبت شده است'
-      })
-    }
-    const sameUserName = UserModel.findOne({ userName })
-    if (sameUserName) {
-      return res.send({
-        success: false,
-        message: 'try another userName',
-        message_fa: 'لطفا نام کاربری دیگری انتخاب کنید'
+        message_fa: 'این شماره موبایل یا نام کاربری قبلا ثبت شده است'
       })
     }
     let upload
@@ -37,7 +29,7 @@ module.exports = async (req, res, next) => {
     }
 
     const hashPassword = hashServices.hashPassword(password)
-    const newUser = new UserModel({
+    const newUser = new UsersModel({
       name,
       userName: userName.replaceAll(' ', '_'),
       phone,

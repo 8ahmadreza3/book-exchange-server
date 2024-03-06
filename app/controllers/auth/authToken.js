@@ -3,7 +3,7 @@ const UserModel = require('../../models/usersModel')
 
 module.exports = async (req, res, next) => {
   try {
-    const token = req.body.token.split(' ')[1]
+    const { token } = req.params
     const verify = jwt.verify(token)
     if (!verify) {
       return res.status(401).send({
@@ -17,20 +17,7 @@ module.exports = async (req, res, next) => {
       return res.status(404).send({
         success: false,
         message: 'User does not exist!',
-        message_fa: 'کاربر یافت نشد',
-        data: {
-          user: {
-            name: '',
-            userName: '',
-            phone: '',
-            img: '',
-            state: '',
-            city: '',
-            isAdmin: '',
-            password: '',
-            awsKey: ''
-          }
-        }
+        message_fa: 'کاربر یافت نشد'
       })
     }
     res.send({

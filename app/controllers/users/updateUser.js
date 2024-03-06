@@ -4,7 +4,7 @@ module.exports = async (req, res, next) => {
   try {
     const { userName } = req.params
     if (req.body.userName) {
-      req.body.address = req.body.address.replaceAll(' ', '_')
+      req.body.userName = req.body.userName.replaceAll(' ', '_')
       const sameUserName = await UsersModel.findOne({ userName: req.body.userName })
       if (sameUserName) {
         res.send({
