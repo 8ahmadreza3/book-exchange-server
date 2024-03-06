@@ -1,6 +1,6 @@
 const UsersModel = require('../../models/usersModel')
 const hashServices = require('../../services/dateService')
-const AWS = require('../../services/AWS')
+// const AWS = require('../../services/AWS')
 
 module.exports = async (req, res, next) => {
   try {
@@ -21,12 +21,12 @@ module.exports = async (req, res, next) => {
       })
     }
     let upload
-    if (req.files.image) {
-      upload = AWS.upload(req.files.image)
-      if (!upload.success) {
-        return res.send(upload)
-      }
-    }
+    // if (req.files.image) {
+    //   upload = AWS.upload(req.files.image)
+    //   if (!upload.success) {
+    //     return res.send(upload)
+    //   }
+    // }
 
     const hashPassword = hashServices.hashPassword(password)
     const newUser = new UsersModel({

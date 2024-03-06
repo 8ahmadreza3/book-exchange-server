@@ -1,6 +1,6 @@
 const RequestModel = require('../../models/requestsModel')
 const UsersModel = require('../../models/usersModel')
-const AWS = require('../../services/AWS')
+// const AWS = require('../../services/AWS')
 
 module.exports = async (req, res, next) => {
   try {
@@ -13,12 +13,12 @@ module.exports = async (req, res, next) => {
       })
     }
     let upload
-    if (req.files.image) {
-      upload = AWS.upload(req.files.image)
-      if (!upload.success) {
-        return res.send(upload)
-      }
-    }
+    // if (req.files.image) {
+    //   upload = AWS.upload(req.files.image)
+    //   if (!upload.success) {
+    //     return res.send(upload)
+    //   }
+    // }
     const user = await UsersModel.findOne({ userName: owner })
     const newRequest = new RequestModel({
       owner,
