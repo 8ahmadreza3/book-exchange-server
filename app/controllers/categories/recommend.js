@@ -2,7 +2,7 @@ const CategoriesModel = require('../../models/categoriesModel')
 
 module.exports = async (req, res, next) => {
   try {
-    const categories = await CategoriesModel.find({})
+    const categories = await CategoriesModel.find({ isRecommend: true })
     res.send({
       success: true,
       message: 'categories found',
