@@ -3,9 +3,8 @@ const UsersModel = require('../../models/usersModel')
 module.exports = async (req, res, next) => {
   try {
     const { userName } = req.params
-    const newUserName = req.body.userName
+    const newUserName = req.body.userName.replaceAll(' ', '_')
     if (newUserName && newUserName !== userName) {
-      req.body.userName = newUserName.replaceAll(' ', '_')
       const sameUserName = await UsersModel.findOne({ userName: newUserName })
       if (sameUserName) {
         res.send({
