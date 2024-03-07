@@ -1,6 +1,4 @@
 const BooksModel = require('../../models/booksModel')
-const AuthorsModel = require('../../models/authorsModel')
-const CategoriesModel = require('../../models/categoriesModel')
 // const AWS = require('../../services/AWS')
 
 module.exports = async (req, res, next) => {
@@ -14,18 +12,10 @@ module.exports = async (req, res, next) => {
     //   }
     // }
 
-    const categoryAddress = await CategoriesModel.findOne({ name: category }).address
-    const authorAddress = await AuthorsModel.findOne({ name: author }).address
     const newBook = new BooksModel({
       name,
-      author: {
-        name: author,
-        address: authorAddress || ''
-      },
-      category: {
-        name: category,
-        address: categoryAddress || ''
-      },
+      author,
+      category,
       info
       // img: upload.url || '',
       // awsKey: upload.awsKey || ''

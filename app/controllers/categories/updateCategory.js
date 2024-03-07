@@ -10,9 +10,10 @@ module.exports = async (req, res, next) => {
         message_fa: 'دسته نامعتبر'
       })
     }
-    if (req.body.address) {
+    const newAddress = req.body.address
+    if (newAddress && newAddress !== address) {
       req.body.address = req.body.address.replaceAll(' ', '_')
-      const sameAddress = await CategoriesModel.findOne({ address: req.body.address })
+      const sameAddress = await CategoriesModel.findOne({ address: newAddress })
       if (sameAddress) {
         res.send({
           success: false,

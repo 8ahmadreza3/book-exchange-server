@@ -3,16 +3,10 @@ const AuthorsModel = require('../../models/authorsModel')
 module.exports = async (req, res, next) => {
   try {
     const { address } = req.params
-    if (!address) {
-      return res.status(404).send({
-        success: false,
-        message: 'Author not found',
-        message_fa: 'نویسنده یافت نشد'
-      })
-    }
-    if (req.body.address) {
-      req.body.address = req.body.address.replaceAll(' ', '_')
-      const sameAddress = await AuthorsModel.findOne({ address: req.body.address })
+    let newAddress = req.body.address
+    if (newAddress && newAddress !== address) {
+      newAddress = req.body.address.replaceAll(' ', '_')
+      const sameAddress = await AuthorsModel.findOne({ address: newAddress })
       if (sameAddress) {
         res.send({
           success: false,

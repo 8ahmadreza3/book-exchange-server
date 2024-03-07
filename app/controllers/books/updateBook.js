@@ -10,9 +10,11 @@ module.exports = async (req, res, next) => {
         message_fa: 'کتاب نامعتبر'
       })
     }
-    if (req.body.address) {
-      req.body.address = req.body.address.replaceAll(' ', '_')
-      const sameAddress = await BooksModel.findOne({ address: req.body.address })
+    const book = await BooksModel.findById(bookID)
+    let newAddress = req.body.address
+    if (newAddress && newAddress !== book.address) {
+      newAddress = newAddress.replaceAll(' ', '_')
+      const sameAddress = await BooksModel.findOne({ address: newAddress })
       if (sameAddress) {
         return res.send({
           success: false,
