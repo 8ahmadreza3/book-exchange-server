@@ -11,7 +11,7 @@ module.exports = async (req, res, next) => {
         message_fa: 'اطلاعات با به صورت کامل وارد کنید'
       })
     }
-    let upload
+    // let upload
     // if (req.files.image) {
     //   upload = AWS.upload(req.files.image)
     //   if (!upload.success) {
@@ -22,11 +22,11 @@ module.exports = async (req, res, next) => {
     const newAuthor = new AuthorsModel({
       name,
       birthYear,
-      deadYear,
+      deadYear: deadYear || '',
       biography,
       address: address.replaceAll(' ', '_'),
-      img: upload.url || '',
-      awsKey: upload.awsKey || ''
+      img: '',
+      awsKey: ''
     })
     await newAuthor.save()
     res.status(201).send({

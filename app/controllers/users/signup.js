@@ -20,7 +20,7 @@ module.exports = async (req, res, next) => {
         message_fa: 'این شماره موبایل یا نام کاربری قبلا ثبت شده است'
       })
     }
-    let upload
+    // let upload
     // if (req.files.image) {
     //   upload = AWS.upload(req.files.image)
     //   if (!upload.success) {
@@ -36,9 +36,9 @@ module.exports = async (req, res, next) => {
       state,
       city,
       isAdmin: false,
-      password: hashPassword,
-      image: upload.url || '',
-      awsKey: upload.awsKey || ''
+      password: hashPassword
+      // image: upload.url || '',
+      // awsKey: upload.awsKey || ''
     })
     await newUser.save()
     res.status(201).send({

@@ -12,7 +12,7 @@ module.exports = async (req, res, next) => {
       })
     }
     const author = await AuthorsModel.findOneAndDelete({ address })
-    if (author) {
+    if (!author) {
       return res.send({
         success: false,
         message: 'Author not found',

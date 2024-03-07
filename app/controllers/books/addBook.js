@@ -6,7 +6,7 @@ const CategoriesModel = require('../../models/categoriesModel')
 module.exports = async (req, res, next) => {
   try {
     const { name, author, category, info } = req.body
-    let upload
+    // let upload
     // if (req.files) {
     //   upload = AWS.upload(req.files.image)
     //   if (!upload.success) {
@@ -26,9 +26,9 @@ module.exports = async (req, res, next) => {
         name: category,
         address: categoryAddress || ''
       },
-      info,
-      img: upload.url || '',
-      awsKey: upload.awsKey || ''
+      info
+      // img: upload.url || '',
+      // awsKey: upload.awsKey || ''
     })
     await newBook.save()
     res.status(201).send({
