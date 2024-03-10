@@ -3,11 +3,11 @@ const CategoriesModel = require('../../models/categoriesModel')
 module.exports = async (req, res, next) => {
   try {
     const { name, address } = req.body
-    if (!name && !address) {
+    if (!name || !address) {
       res.send({
         success: false,
         message: 'Enter the information in full',
-        message_fa: 'اطلاعات با به صورت کامل وارد کنید'
+        message_fa: 'اطلاعات را به صورت کامل وارد کنید'
       })
     }
     const newCategory = new CategoriesModel({

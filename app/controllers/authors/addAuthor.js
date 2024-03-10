@@ -4,11 +4,11 @@ const AuthorsModel = require('../../models/authorsModel')
 module.exports = async (req, res, next) => {
   try {
     const { name, birthYear, deadYear, biography, address } = req.body
-    if (!name && !address) {
+    if (!name || !address) {
       res.send({
         success: false,
         message: 'Enter the information in full',
-        message_fa: 'اطلاعات با به صورت کامل وارد کنید'
+        message_fa: 'اطلاعات را به صورت کامل وارد کنید'
       })
     }
     // let upload

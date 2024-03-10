@@ -19,7 +19,7 @@ module.exports = async (req, res, next) => {
         message_fa: 'نویسنده یافت نشد'
       })
     }
-    const authorBooks = await BooksModel.findOne({ author: author.name })
+    const authorBooks = await BooksModel.find({ author: author.name })
     res.send({
       success: true,
       message: 'Author information found',

@@ -4,6 +4,13 @@ const BooksModel = require('../../models/booksModel')
 module.exports = async (req, res, next) => {
   try {
     const { name, author, category, info } = req.body
+    if (!name || !author) {
+      res.send({
+        success: false,
+        message: 'Enter the information in full',
+        message_fa: 'اطلاعات را به صورت کامل وارد کنید'
+      })
+    }
     // let upload
     // if (req.files) {
     //   upload = AWS.upload(req.files.image)
