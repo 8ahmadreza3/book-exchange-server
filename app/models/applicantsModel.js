@@ -1,7 +1,10 @@
 const mongoose = require('mongoose')
 
 const requestsSchema = new mongoose.Schema({
-  requestId: ObjectId,
+  requestId: {
+    type: mongoose.Schema.type.ObjectId,
+    required: true
+  },
   userName: String,
   description: { type: String, default: '' },
   time: String

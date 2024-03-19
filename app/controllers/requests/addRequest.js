@@ -1,6 +1,5 @@
 const RequestModel = require('../../models/requestsModel')
 const UsersModel = require('../../models/usersModel')
-// const AWS = require('../../services/AWS')
 
 module.exports = async (req, res, next) => {
   try {
@@ -12,17 +11,8 @@ module.exports = async (req, res, next) => {
         message_fa: 'اطلاعات را به صورت کامل وارد کنید'
       })
     }
-    const upload = {
-      url: '',
-      awsKey: ''
-    }
-    // if (req.files.image) {
-    //   upload = AWS.upload(req.files.image)
-    //   if (!upload.success) {
-    //     return res.send(upload)
-    //   }
-    // }
     let user = await UsersModel.findOne({ userName: owner })
+    // TODO this is for test
     user = user || {
       state: '',
       city: '',
@@ -35,8 +25,6 @@ module.exports = async (req, res, next) => {
       state: user.state,
       city: user.city,
       phone: user.phone,
-      img: upload.url,
-      awsKey: upload.awsKey,
       createdAt: new Date(),
       applicants: [],
       conditions,

@@ -1,12 +1,13 @@
 const RequestsModel = require('../../models/requestsModel')
+const ApplicantsModel = require('../../models/applicantsModel')
 const dateService = require('../../services/dateService')
 
 module.exports = async (req, res, next) => {
   try {
-    const filter = req.body ? req.body : {}
-    const requests = await RequestsModel.find(filter)
-    const presentedRequests = requests.map(request => {
+    const requests = await RequestsModel.find({})
+    const presentedRequests = requests.map(async request => {
       request.createdAt = dateService.toPersianDate(request.createdAt)
+      request.applicants = await ApplicantsModel.find({ requestId: request._id })
       return request
     })
     res.send({
