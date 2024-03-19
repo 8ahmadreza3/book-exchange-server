@@ -14,11 +14,11 @@ module.exports = async (req, res, next) => {
     const requestsOwner = await RequestsModel.find({ owner: userName })
     const requestsGetter = await RequestsModel.find({ getter: userName })
     const owner = requestsOwner.map(request => {
-      request.createdAt_persian = dateService.toPersianDate(request.createdAt)
+      request.createdAt = dateService.toPersianDate(request.createdAt)
       return request
     })
     const getter = requestsGetter.map(request => {
-      request.createdAt_persian = dateService.toPersianDate(request.createdAt)
+      request.createdAt = dateService.toPersianDate(request.createdAt)
       return request
     })
     res.send({

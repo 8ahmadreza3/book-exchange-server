@@ -4,7 +4,7 @@ const AWS = require('../../services/AWS')
 
 module.exports = async (req, res, next) => {
   try {
-    const { requestId, userName } = req.body
+    const { requestId } = req.params
     const request = await RequestsModel.findOne({ _id: requestId })
     const user = await UsersModel.findOne({ userName })
     if ((request.owner === userName && !request.getter) || user.isAdmin) {

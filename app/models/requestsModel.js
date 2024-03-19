@@ -8,7 +8,7 @@ const requestsSchema = new mongoose.Schema({
   city: String,
   phone: String,
   img: { type: String, default: '' },
-  printYear: Number,
+  printYear: String,
   publisher: String,
   conditions: { type: String, default: '' },
   createdAt: Date,

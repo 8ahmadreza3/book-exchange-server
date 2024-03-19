@@ -6,7 +6,7 @@ module.exports = async (req, res, next) => {
     const filter = req.body ? req.body : {}
     const requests = await RequestsModel.find(filter)
     const presentedRequests = requests.map(request => {
-      request.createdAt_persian = dateService.toPersianDate(request.createdAt)
+      request.createdAt = dateService.toPersianDate(request.createdAt)
       return request
     })
     res.send({
