@@ -10,6 +10,6 @@ router.patch('/done/:requestId', requestsController.doneRequest)
 router.delete('/:requestId', requestsController.deleteRequest)
 router.get('/', requestsController.allRequests)
 router.get('/:userName', requestsController.listRequests)
-router.patch('/', requestsController.updateRequest)
+router.patch('/:requestId', requestsController.updateRequest)
 
 module.exports = router
