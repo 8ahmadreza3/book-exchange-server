@@ -1,5 +1,6 @@
 const RequestsModel = require('../../models/requestsModel')
 const dateService = require('../../services/dateService')
+const ApplicantsModel = require('../../models/applicantsModel')
 
 module.exports = async (req, res, next) => {
   try {
@@ -13,12 +14,20 @@ module.exports = async (req, res, next) => {
     }
     const requestsOwner = await RequestsModel.find({ owner: userName })
     const requestsGetter = await RequestsModel.find({ getter: userName })
-    const owner = requestsOwner.map(request => {
+    const requestsApplicant = await ApplicantsModel.find({ userName })
+    const owner = requestsOwner.map(async request => {
       request.createdAt = dateService.toPersianDate(request.createdAt)
+      request.applicants = await ApplicantsModel.find({ requestId: request.id })
       return request
     })
     const getter = requestsGetter.map(request => {
       request.createdAt = dateService.toPersianDate(request.createdAt)
+      return request
+    })
+    const applicants = requestsApplicant.map(async applicant => {
+      const request = await RequestsModel.findOne({ _id: applicants.requestId })
+      request.createdAt = dateService.toPersianDate(request.createdAt)
+      request.applicants = [applicant]
       return request
     })
     res.send({
@@ -27,7 +36,8 @@ module.exports = async (req, res, next) => {
       message_fa: 'درخواست های این کاربر پیدا شد',
       data: {
         getter,
-        owner
+        owner,
+        applicants
       }
     })
   } catch (error) {
