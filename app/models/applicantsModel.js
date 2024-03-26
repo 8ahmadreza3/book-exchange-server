@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 
 const applicantsSchema = new mongoose.Schema({
-  requestId: ObjectId,
+  requestId: Schema.Types.ObjectId,
   userName: String,
   description: { type: String, default: '' },
   time: String
