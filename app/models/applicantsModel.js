@@ -1,15 +1,12 @@
 const mongoose = require('mongoose')
 
-const requestsSchema = new mongoose.Schema({
-  requestId: {
-    type: ObjectId,
-    required: true
-  },
+const applicantsSchema = new mongoose.Schema({
+  requestId: ObjectId,
   userName: String,
   description: { type: String, default: '' },
   time: String
 })
 
-const requestModel = mongoose.model('Request', requestsSchema)
+const applicantsModel = mongoose.model('Applicants', applicantsSchema)
 
-module.exports = requestModel
+module.exports = applicantsModel
