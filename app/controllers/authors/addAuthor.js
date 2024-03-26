@@ -3,7 +3,7 @@ const AuthorsModel = require('../../models/authorsModel')
 
 module.exports = async (req, res, next) => {
   try {
-    const { name, birthYear, deadYear, biography, address } = req.body
+    const { name, birthYear, deadYear, biography, address, isRecommend } = req.body
     if (!name || !address) {
       res.send({
         success: false,
@@ -22,7 +22,8 @@ module.exports = async (req, res, next) => {
     const newAuthor = new AuthorsModel({
       name,
       birthYear,
-      deadYear: deadYear || '',
+      deadYear: deadYear || '-1',
+      isRecommend: isRecommend || false ,
       biography,
       address: address.replaceAll(' ', '_'),
       img: '',

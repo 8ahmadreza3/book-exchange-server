@@ -3,7 +3,7 @@ const BooksModel = require('../../models/booksModel')
 
 module.exports = async (req, res, next) => {
   try {
-    const { name, author, category, info } = req.body
+    const { name, author, category, info, isRecommend } = req.body
     if (!name || !author) {
       res.send({
         success: false,
@@ -23,7 +23,8 @@ module.exports = async (req, res, next) => {
       name,
       author,
       category,
-      info
+      info,
+      isRecommend: isRecommend || false
       // img: upload.url || '',
       // awsKey: upload.awsKey || ''
     })

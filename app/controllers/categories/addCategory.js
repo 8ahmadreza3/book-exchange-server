@@ -13,7 +13,7 @@ module.exports = async (req, res, next) => {
     const newCategory = new CategoriesModel({
       name,
       address: address.replaceAll(' ', '_'),
-      isRecommend
+      isRecommend: isRecommend || false
     })
     await newCategory.save()
     res.status(201).send({
