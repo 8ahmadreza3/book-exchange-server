@@ -13,7 +13,7 @@ module.exports = async (req, res, next) => {
       })
     }
     const newApplicant = new ApplicantsModel({
-      requestId,
+      requestId: request._id,
       userName,
       time,
       description

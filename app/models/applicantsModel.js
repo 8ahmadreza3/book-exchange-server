@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 
 const requestsSchema = new mongoose.Schema({
   requestId: {
-    type: mongoose.Schema.type.ObjectId,
+    type: ObjectId,
     required: true
   },
   userName: String,
