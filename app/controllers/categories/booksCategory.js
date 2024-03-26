@@ -1,6 +1,7 @@
 const BooksModel = require('../../models/booksModel')
+const CategoriesModel = require('../../models/categoriesModel')
 
-module.exports = (req, res, next) => {
+module.exports = async (req, res, next) => {
   try {
     const { address } = req.params
     if (!address) {
@@ -10,7 +11,8 @@ module.exports = (req, res, next) => {
         message_fa: 'دسته نامعتبر'
       })
     }
-    const books = BooksModel.find({ address })
+    const category = await CategoriesModel.findOne({ address })
+    const books = BooksModel.find({ category: category.name })
     res.send({
       success: true,
       message: 'category books founded',
