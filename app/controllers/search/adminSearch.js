@@ -33,6 +33,21 @@ module.exports = async (req, res, next) => {
         { name: { $regex: `${keyWord}`, $options: 'i' } }
       ]
     })
+    const requests = RequestsModel.find({
+      $or: [
+        { owner: { $regex: `${keyWord}`, $options: 'i' } },
+        { book: { $regex: `${keyWord}`, $options: 'i' } },
+        { getter: { $regex: `${keyWord}`, $options: 'i' } }
+      ]
+    })
+    const users = UsersModel.find({
+      $or: [
+        { name: { $regex: `${keyWord}`, $options: 'i' } },
+        { userName: { $regex: `${keyWord}`, $options: 'i' } },
+        { phone: { $regex: `${keyWord}`, $options: 'i' } },
+        { city: { $regex: `${keyWord}`, $options: 'i' } }
+      ]
+    })
     res.status(201).send({
       success: true,
       message: 'new author The search was done in all databases',
@@ -40,7 +55,9 @@ module.exports = async (req, res, next) => {
       data: {
         books,
         authors,
-        categories
+        categories,
+        requests,
+        users
       }
     })
   } catch (error) {
