@@ -5,11 +5,11 @@ const hashServices = require('../../services/dateService')
 module.exports = async (req, res, next) => {
   try {
     const { name, userName, phone, state, city, password } = req.body
-    if (!name || !userName) {
+    if (!name || !userName || !phone || !password) {
       res.send({
         success: false,
         message: 'Enter the information in full',
-        message_fa: 'اطلاعات با به صورت کامل وارد کنید'
+        message_fa: 'اطلاعات را به صورت کامل وارد کنید'
       })
     }
     const same = UsersModel.findOne({ $or: [{ phone, userName }] })
