@@ -1,5 +1,5 @@
 const UsersModel = require('../../models/usersModel')
-const hashServices = require('../../services/dateService')
+const hashServices = require('../../services/hashService')
 // const AWS = require('../../services/AWS')
 
 module.exports = async (req, res, next) => {
@@ -12,11 +12,11 @@ module.exports = async (req, res, next) => {
         message_fa: 'اطلاعات را به صورت کامل وارد کنید'
       })
     }
-    const same = UsersModel.findOne({ $or: [{ phone, userName }] })
+    const same = await UsersModel.findOne({ $or: [{ phone }, { userName }] })
     if (same) {
       return res.send({
         success: false,
-        message: 'try another phoneNumber',
+        message: 'try another phone number or username',
         message_fa: 'این شماره موبایل یا نام کاربری قبلا ثبت شده است'
       })
     }
