@@ -4,7 +4,7 @@ const ApplicantsModel = require('../../models/applicantsModel')
 
 module.exports = async (req, res, next) => {
   try {
-    const { userName } = req.param
+    const { userName } = req.params
     if (!userName) {
       return res.status(401).send({
         success: false,
@@ -12,20 +12,30 @@ module.exports = async (req, res, next) => {
         message_fa: 'کاربر نامعتبر'
       })
     }
-    const requestsOwner = await RequestsModel.find({ owner: userName })
-    const requestsGetter = await RequestsModel.find({ getter: userName })
-    const requestsApplicant = await ApplicantsModel.find({ userName })
-    const owner = requestsOwner.map(async request => {
+    const allRequests = await RequestsModel.find({})
+    const allApplicants = await ApplicantsModel.find({})
+
+    const requestsOwner = allRequests.filter(request => {
+      return request.owner === userName
+    })
+    const requestsGetter = allRequests.filter(request => {
+      return request.getter === userName
+    })
+    const owner = requestsOwner.map(request => {
       request.createdAt = dateService.toPersianDate(request.createdAt)
-      request.applicants = await ApplicantsModel.find({ requestId: request.id })
+      request.applicants = allApplicants.filter(applicant => {
+        return applicant.requestId === request._id.toString()
+      })
       return request
     })
     const getter = requestsGetter.map(request => {
       request.createdAt = dateService.toPersianDate(request.createdAt)
       return request
     })
-    const applicants = requestsApplicant.map(async applicant => {
-      const request = await RequestsModel.findOne({ _id: applicants.requestId })
+    const applicants = allApplicants.map(applicant => {
+      const request = allRequests.find(request => {
+        return request._id.toString() === applicant.requestId
+      })
       request.createdAt = dateService.toPersianDate(request.createdAt)
       request.applicants = [applicant]
       return request

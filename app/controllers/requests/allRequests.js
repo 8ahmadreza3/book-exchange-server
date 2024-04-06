@@ -5,9 +5,12 @@ const dateService = require('../../services/dateService')
 module.exports = async (req, res, next) => {
   try {
     const requests = await RequestsModel.find({})
-    const presentedRequests = requests.map(async request => {
+    const applicants = await ApplicantsModel.find({})
+    const presentedRequests = requests.map(request => {
       request.createdAt = dateService.toPersianDate(request.createdAt)
-      request.applicants = await ApplicantsModel.find({ requestId: request._id })
+      request.applicants = applicants.filter(applicant => {
+        return applicant.requestId === request._id.toString()
+      })
       return request
     })
     res.send({
