@@ -13,8 +13,8 @@ module.exports = async (req, res, next) => {
         message_fa: 'کاربر یافت نشد'
       })
     }
-    if (hashService.comparePassword(password, user.password)) {
-      return res.render({
+    if (!hashService.comparePassword(password, user.password)) {
+      return res.send({
         success: false,
         message: 'The password or username/number is incorrect',
         message_fa: 'رمز یا نام کاربری/شماره اشتباه است'
@@ -26,7 +26,7 @@ module.exports = async (req, res, next) => {
       message: 'Login was successful',
       message_fa: 'ورود با موفقیت انجام شد',
       data: {
-        token: 'Bearer' + token,
+        token,
         user
       }
     })
