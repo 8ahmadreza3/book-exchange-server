@@ -5,9 +5,10 @@ module.exports = (app) => {
     winston.error(error.message, error)
     const status = error.status || 500
     res.send({
-      code: 'Exception',
+      success: false,
       status,
-      message: error.message
+      message: error.message,
+      message_fa: 'خطایی از سمت سرور پیش آمده، لطفا مجدد امتحان کنید'
     })
   })
 }
