@@ -4,10 +4,10 @@ const ApplicantsModel = require('../../models/applicantsModel')
 module.exports = async (req, res, next) => {
   try {
     const { requestId } = req.params
-    const { deletedCount } = await RequestsModel.updateOne({ _id: requestId }, req.body)
-    if (deletedCount === 0) {
-      const { deletedCount } = await ApplicantsModel.updateOne({ _id: requestId }, req.body)
-      if (deletedCount === 0) {
+    const request = await RequestsModel.findByIdAndDelete(requestId)
+    if (!request) {
+      const applicant = await ApplicantsModel.findByIdAndDelete(requestId)
+      if (!applicant) {
         return res.status(404).send({
           success: false,
           message: 'can not delete request',
