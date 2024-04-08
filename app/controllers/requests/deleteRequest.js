@@ -1,6 +1,5 @@
 const RequestsModel = require('../../models/requestsModel')
-const UsersModel = require('../../models/usersModel')
-const AWS = require('../../services/AWS')
+const ApplicantsModel = require('../../models/applicantsModel')
 
 module.exports = async (req, res, next) => {
   try {
