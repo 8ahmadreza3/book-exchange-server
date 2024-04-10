@@ -15,32 +15,32 @@ module.exports = async (req, res, next) => {
       })
     }
     keyWord = keyWord.replaceAll('_', ' ')
-    const books = BooksModel.find({
+    const books = await BooksModel.find({
       $or: [
         { name: { $regex: `${keyWord}`, $options: 'i' } },
         { author: { $regex: `${keyWord}`, $options: 'i' } },
         { category: { $regex: `${keyWord}`, $options: 'i' } }
       ]
     })
-    const authors = AuthorsModel.find({
+    const authors = await AuthorsModel.find({
       $or: [
         { name: { $regex: `${keyWord}`, $options: 'i' } },
         { bioGraphy: { $regex: `${keyWord}`, $options: 'i' } }
       ]
     })
-    const categories = CategoriesModel.find({
+    const categories = await CategoriesModel.find({
       $or: [
         { name: { $regex: `${keyWord}`, $options: 'i' } }
       ]
     })
-    const requests = RequestsModel.find({
+    const requests = await RequestsModel.find({
       $or: [
         { owner: { $regex: `${keyWord}`, $options: 'i' } },
         { book: { $regex: `${keyWord}`, $options: 'i' } },
         { getter: { $regex: `${keyWord}`, $options: 'i' } }
       ]
     })
-    const users = UsersModel.find({
+    const users = await UsersModel.find({
       $or: [
         { name: { $regex: `${keyWord}`, $options: 'i' } },
         { userName: { $regex: `${keyWord}`, $options: 'i' } },

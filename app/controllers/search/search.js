@@ -1,8 +1,6 @@
 const BooksModel = require('../../models/booksModel')
 const AuthorsModel = require('../../models/authorsModel')
 const CategoriesModel = require('../../models/categoriesModel')
-const RequestsModel = require('../../models/requestsModel')
-const UsersModel = require('../../models/usersModel')
 
 module.exports = async (req, res, next) => {
   try {
@@ -15,20 +13,20 @@ module.exports = async (req, res, next) => {
       })
     }
     keyWord = keyWord.replaceAll('_', ' ')
-    const books = BooksModel.find({
+    const books = await BooksModel.find({
       $or: [
         { name: { $regex: `${keyWord}`, $options: 'i' } },
         { author: { $regex: `${keyWord}`, $options: 'i' } },
         { category: { $regex: `${keyWord}`, $options: 'i' } }
       ]
     })
-    const authors = AuthorsModel.find({
+    const authors = await AuthorsModel.find({
       $or: [
         { name: { $regex: `${keyWord}`, $options: 'i' } },
         { bioGraphy: { $regex: `${keyWord}`, $options: 'i' } }
       ]
     })
-    const categories = CategoriesModel.find({
+    const categories = await CategoriesModel.find({
       $or: [
         { name: { $regex: `${keyWord}`, $options: 'i' } }
       ]
