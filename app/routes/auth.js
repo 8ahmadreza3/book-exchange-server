@@ -4,6 +4,6 @@ const authController = require('../controllers/auth')
 
 router.get('/:phone', authController.confirm)
 router.get('/token/:token', authController.authToken)
-router.patch('/:phone', authController.forgotPass)
+router.patch('/:userAuth', authController.forgotPass)
 
 module.exports = router

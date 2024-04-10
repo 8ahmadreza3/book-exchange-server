@@ -1,10 +1,10 @@
 const smsService = require('../../services/smsService')
-const UserModel = require('../../models/usersModel')
+const UsersModel = require('../../models/usersModel')
 
 module.exports = async (req, res, next) => {
   try {
-    const { userAuth } = req.body
-    const user = await UserModel.findOne({ $or: [{ userName: userAuth }, { phone: userAuth }] })
+    const { userAuth } = req.params
+    const user = await UsersModel.findOne({ $or: [{ userName: userAuth }, { phone: userAuth }] })
     if (!user) {
       return res.send({
         success: false,
