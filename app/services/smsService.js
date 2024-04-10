@@ -11,9 +11,7 @@ module.exports = (to, authCode) => {
   کد احراز شماره تلفن شما :
   ${authCode}`
   sms.send(to, process.env.MELI_NUMBER, text)
-    .then(res => {
-      console.log(res)
-    }).catch(err => {
+    .then().catch(err => {
       throw err
     })
 }

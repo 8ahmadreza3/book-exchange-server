@@ -3,7 +3,8 @@ const ApplicantsModel = require('../../models/applicantsModel')
 
 module.exports = async (req, res, next) => {
   try {
-    const { requestId, userName, time, description } = req.body
+    const { requestId } = req.params
+    const { userName, time, description } = req.body
     const request = await RequestsModel.findById(requestId)
     if (!request) {
       return res.send({
