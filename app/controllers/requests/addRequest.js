@@ -3,7 +3,7 @@ const UsersModel = require('../../models/usersModel')
 
 module.exports = async (req, res, next) => {
   try {
-    const { owner, book, conditions, printYear } = req.body
+    const { owner, book, conditions, printYear, publisher } = req.body
     if (!owner || !book) {
       res.send({
         success: false,
@@ -11,17 +11,19 @@ module.exports = async (req, res, next) => {
         message_fa: 'اطلاعات را به صورت کامل وارد کنید'
       })
     }
-    let user = await UsersModel.findOne({ userName: owner })
-    // TODO this is for test
-    user = user || {
-      state: '',
-      city: '',
-      phone: ''
+    const user = await UsersModel.findOne({ userName: owner })
+    if (!user) {
+      return res.send({
+        success: false,
+        message: 'user dosn\'t exist',
+        message_fa: 'کاربر یافت نشد'
+      })
     }
     const newRequest = new RequestModel({
       owner,
       book,
       printYear,
+      publisher,
       state: user.state,
       city: user.city,
       phone: user.phone,

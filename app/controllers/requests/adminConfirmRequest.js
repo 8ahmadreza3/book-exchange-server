@@ -2,8 +2,8 @@ const RequestsModel = require('../../models/requestsModel')
 
 module.exports = async (req, res, next) => {
   try {
-    const { _id } = req.body
-    const { n, nModified } = await RequestsModel.updateOne({ _id }, { status: 'در حال نمایش' })
+    const { requestId } = req.params
+    const { n, nModified } = await RequestsModel.updateOne({ _id: requestId }, { status: 'در حال نمایش' })
     if (n === 0 || nModified === 0) {
       return res.send({
         success: false,
