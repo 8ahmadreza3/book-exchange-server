@@ -1,6 +1,6 @@
 const BooksModel = require('../../models/booksModel')
 const RequestsModel = require('../../models/requestsModel')
-const ApplicantsModel = require('../../models/applicantsModel')
+const dateService = require('../../services/dateService')
 
 module.exports = async (req, res, next) => {
   try {
@@ -21,9 +21,8 @@ module.exports = async (req, res, next) => {
       })
     }
     const requests = await RequestsModel.find({ book: book.name })
-    const presentedRequests = requests.map(async request => {
+    const presentedRequests = requests.map(request => {
       request.createdAt = dateService.toPersianDate(request.createdAt)
-      request.applicants = await ApplicantsModel.find({ requestId: request._id })
       return request
     })
     res.send({
