@@ -11,23 +11,20 @@ module.exports = async (req, res, next) => {
         message_fa: 'اطلاعات را به صورت کامل وارد کنید'
       })
     }
-    // let upload
+    // let awsKey
     // if (req.files.image) {
-    //   upload = AWS.upload(req.files.image)
-    //   if (!upload.success) {
-    //     return res.send(upload)
-    //   }
+    //   { awsKey } = await AWS.upload(req.files.image)
     // }
 
     const newAuthor = new AuthorsModel({
       name,
       birthYear,
       deadYear: deadYear || '-1',
-      isRecommend: isRecommend || false ,
+      isRecommend: isRecommend || false,
       biography,
       address: address.replaceAll(' ', '_'),
-      img: '',
-      awsKey: ''
+      img: '', // process.env.LIARA_URL + awsKey + '.png'
+      awsKey: '' // awsKey
     })
     await newAuthor.save()
     res.status(201).send({
