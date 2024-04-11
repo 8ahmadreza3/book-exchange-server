@@ -16,27 +16,25 @@ module.exports = async (req, res, next) => {
     const allApplicants = await ApplicantsModel.find({})
 
     const requestsOwner = allRequests.filter(request => {
+      request.createdAt = dateService.toPersianDate(request.createdAt)
       return request.owner === userName
     })
     const requestsGetter = allRequests.filter(request => {
       return request.getter === userName
     })
     const owner = requestsOwner.map(request => {
-      request.createdAt = dateService.toPersianDate(request.createdAt)
       request.applicants = allApplicants.filter(applicant => {
         return applicant.requestId === request._id.toString()
       })
       return request
     })
     const getter = requestsGetter.map(request => {
-      request.createdAt = dateService.toPersianDate(request.createdAt)
       return request
     })
     const applicants = allApplicants.map(applicant => {
       const request = allRequests.find(request => {
         return request._id.toString() === applicant.requestId
       })
-      request.createdAt = dateService.toPersianDate(request.createdAt)
       request.applicants = [applicant]
       return request
     })
