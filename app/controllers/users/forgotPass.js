@@ -1,5 +1,5 @@
 const UserModel = require('../../models/usersModel')
-const hashServices = require('../../services/dateService')
+const hashServices = require('../../services/hashService')
 
 module.exports = async (req, res, next) => {
   try {
