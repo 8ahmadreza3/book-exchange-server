@@ -24,7 +24,7 @@ module.exports = async (req, res, next) => {
     res.send({
       success: true,
       message: 'User information has been updated',
-      message_fa: 'اطلاعات کاربر به روز شده است'
+      message_fa: 'اطلاعات کاربر به روز شد'
     })
   } catch (error) {
     next(error)

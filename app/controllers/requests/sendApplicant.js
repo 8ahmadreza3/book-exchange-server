@@ -5,6 +5,13 @@ module.exports = async (req, res, next) => {
   try {
     const { requestId } = req.params
     const { userName, time, description } = req.body
+    if (!userName) {
+      return res.send({
+        success: false,
+        message: 'User name is required',
+        message_fa: 'نام کاربری الزامی است'
+      })
+    }
     const request = await RequestsModel.findById(requestId)
     if (!request) {
       return res.send({
