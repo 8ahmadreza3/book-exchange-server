@@ -1,10 +1,10 @@
 const allRequests = require('./allRequests')
 const listRequests = require('./listRequests')
 const addRequest = require('./addRequest')
-const sendRequest = require('./sendRequest')
+const sendApplicant = require('./sendApplicant')
 const deleteRequest = require('./deleteRequest')
+const confirmApplicant = require('./confirmApplicant')
 const confirmRequest = require('./confirmRequest')
-const adminConfirmRequest = require('./adminConfirmRequest')
 const doneRequest = require('./doneRequest')
 const updateRequest = require('./updateRequest')
 
@@ -12,10 +12,10 @@ module.exports = {
   allRequests,
   listRequests,
   addRequest,
-  sendRequest,
+  sendApplicant,
   deleteRequest,
+  confirmApplicant,
   confirmRequest,
-  adminConfirmRequest,
   doneRequest,
   updateRequest
 }
