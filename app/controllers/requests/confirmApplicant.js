@@ -28,6 +28,7 @@ module.exports = async (req, res, next) => {
       })
     }
     await RequestsModel.updateOne({ _id: requestId }, { getter: userName, createdAt: new Date(), time, description, status: 'امانت داده شده' })
+    await ApplicantsModel.deleteOne({ _id: applicantId })
     res.send({
       success: true,
       message: 'The request was confirmed',

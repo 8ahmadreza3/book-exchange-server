@@ -28,9 +28,6 @@ module.exports = async (req, res, next) => {
       })
       return request
     })
-    const getter = requestsGetter.map(request => {
-      return request
-    })
     const applicants = allApplicants.map(applicant => {
       const request = allRequests.find(request => {
         return request._id.toString() === applicant.requestId && applicant.userName === userName
@@ -43,7 +40,7 @@ module.exports = async (req, res, next) => {
       message: 'This user\'s requests were found',
       message_fa: 'درخواست های این کاربر پیدا شد',
       data: {
-        getter,
+        getter: requestsGetter,
         owner,
         applicants
       }
