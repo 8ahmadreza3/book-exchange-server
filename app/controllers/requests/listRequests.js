@@ -33,7 +33,7 @@ module.exports = async (req, res, next) => {
     })
     const applicants = allApplicants.map(applicant => {
       const request = allRequests.find(request => {
-        return request._id.toString() === applicant.requestId
+        return request._id.toString() === applicant.requestId && applicant.userName === userName
       })
       request.applicants = [applicant]
       return request

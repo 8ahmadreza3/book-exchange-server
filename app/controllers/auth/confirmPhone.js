@@ -4,7 +4,7 @@ const UsersModel = require('../../models/usersModel')
 module.exports = async (req, res, next) => {
   try {
     const { phone } = req.params
-    const user = UsersModel.findOne({ phone })
+    const user = await UsersModel.findOne({ phone })
     if (user) {
       return res.send({
         success: false,
