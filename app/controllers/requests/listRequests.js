@@ -28,9 +28,12 @@ module.exports = async (req, res, next) => {
       })
       return request
     })
-    const applicants = allApplicants.map(applicant => {
+    const userApplicants = allApplicants.filter(applicant => {
+      return applicant.userName === userName
+    })
+    const applicants = userApplicants.map(applicant => {
       const request = allRequests.find(request => {
-        return request._id.toString() === applicant.requestId && applicant.userName === userName
+        return request._id.toString() === applicant.requestId
       })
       request.applicants = [applicant]
       return request
