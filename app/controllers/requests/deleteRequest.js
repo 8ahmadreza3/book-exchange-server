@@ -15,6 +15,7 @@ module.exports = async (req, res, next) => {
         })
       }
     }
+    await ApplicantsModel.deleteMany({ requestId: request._id })
     res.send({
       success: true,
       message: 'request deleted',
