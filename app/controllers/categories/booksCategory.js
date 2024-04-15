@@ -5,18 +5,25 @@ module.exports = async (req, res, next) => {
   try {
     const { address } = req.params
     if (!address) {
-      return res.status(404).send({
+      return res.send({
         success: false,
         message: 'Invalid category',
         message_fa: 'دسته نامعتبر'
       })
     }
     const category = await CategoriesModel.findOne({ address })
-    const books = BooksModel.find({ category: category.name })
+    if (!category) {
+      return res.send({
+        success: false,
+        message: 'There is no such category',
+        message_fa: 'چنین دسته بندی وجود ندارد'
+      })
+    }
+    const books = await BooksModel.find({ category: category.name })
     res.send({
       success: true,
       message: 'category books founded',
-      message_fa: 'دسته بندی کتاب تاسیس شد',
+      message_fa: 'کتاب های دسته بندی پیدا شد',
       date: {
         books
       }

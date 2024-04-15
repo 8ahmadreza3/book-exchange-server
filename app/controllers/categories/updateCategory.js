@@ -11,8 +11,11 @@ module.exports = async (req, res, next) => {
         message_fa: 'دسته نامعتبر'
       })
     }
-    req.body.address = req.body.address.replaceAll(' ', '_')
-    const newAddress = req.body.address
+    let newAddress = address
+    if (req.body.address) {
+      req.body.address = req.body.address.replaceAll(' ', '_')
+      newAddress = req.body.address
+    }
     if (newAddress && newAddress !== address) {
       const sameAddress = await CategoriesModel.findOne({ address: newAddress })
       if (sameAddress) {
@@ -24,15 +27,18 @@ module.exports = async (req, res, next) => {
       }
     }
     const oldCategory = await CategoriesModel.findOne({ address })
-    const newCategory = await CategoriesModel.findOneAndUpdate({ address }, { ...req.body })
     if (!oldCategory) {
-      return res.status(404).send({
-        success: true,
+      return res.send({
+        success: false,
         message: 'can not update category',
         message_fa: 'نمی توان دسته را به روز کرد'
       })
     }
-    await BooksModel.updateMany({ category: oldCategory.name }, { category: newCategory.name })
+    await CategoriesModel.updateOne({ address }, { ...req.body })
+    const newCategory = await CategoriesModel.findById(oldCategory._id)
+    if (req.body.name && req.body.name !== oldCategory.name) {
+      await BooksModel.updateMany({ category: oldCategory.name }, { category: newCategory.name })
+    }
     res.send({
       success: true,
       message: 'Category information has been updated',
