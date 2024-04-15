@@ -3,6 +3,8 @@ const AuthorsModel = require('../../models/authorsModel')
 const CategoriesModel = require('../../models/categoriesModel')
 const RequestsModel = require('../../models/requestsModel')
 const UsersModel = require('../../models/usersModel')
+const ApplicantsModel = require('../../models/applicantsModel')
+const dateService = require('../../services/dateService')
 
 module.exports = async (req, res, next) => {
   try {
@@ -33,13 +35,6 @@ module.exports = async (req, res, next) => {
         { name: { $regex: `${keyWord}`, $options: 'i' } }
       ]
     })
-    const requests = await RequestsModel.find({
-      $or: [
-        { owner: { $regex: `${keyWord}`, $options: 'i' } },
-        { book: { $regex: `${keyWord}`, $options: 'i' } },
-        { getter: { $regex: `${keyWord}`, $options: 'i' } }
-      ]
-    })
     const users = await UsersModel.find({
       $or: [
         { name: { $regex: `${keyWord}`, $options: 'i' } },
@@ -48,6 +43,31 @@ module.exports = async (req, res, next) => {
         { city: { $regex: `${keyWord}`, $options: 'i' } }
       ]
     })
+    const allRequests = await RequestsModel.find({})
+    const allApplicants = await ApplicantsModel.find({})
+    const userRequests = await RequestsModel.find({
+      $or: [
+        { owner: { $regex: `${keyWord}`, $options: 'i' } },
+        { book: { $regex: `${keyWord}`, $options: 'i' } },
+        { getter: { $regex: `${keyWord}`, $options: 'i' } }
+      ]
+    })
+    const requests = userRequests.map(request => {
+      request.applicants = allApplicants.filter(applicant => {
+        return applicant.requestId === request._id.toString()
+      })
+      return request
+    })
+    const userApplicants = await ApplicantsModel.find({ userName: { $regex: `${keyWord}`, $options: 'i' } })
+    const applicants = userApplicants.map(applicant => {
+      const request = allRequests.find(request => {
+        return request._id.toString() === applicant.requestId
+      })
+      request.createdAt = dateService.toPersianDate(request.createdAt)
+      request.applicants = [applicant]
+      return request
+    })
+
     res.status(201).send({
       success: true,
       message: 'new author The search was done in all databases',
@@ -56,7 +76,7 @@ module.exports = async (req, res, next) => {
         books,
         authors,
         categories,
-        requests,
+        requests: [...requests, ...applicants],
         users
       }
     })
