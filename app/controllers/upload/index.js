@@ -1,4 +1,4 @@
-const AWS = require('../services/AWS')
+const AWS = require('../../services/AWS')
 
 module.exports.uploadImg = async (req, res, next) => {
   try {
