@@ -3,7 +3,7 @@ const UsersModel = require('../../models/usersModel')
 
 module.exports = async (req, res, next) => {
   try {
-    const { owner, book, conditions, printYear, publisher } = req.body
+    const { owner, book, awsKey, conditions, printYear, publisher } = req.body
     if (!owner || !book) {
       res.send({
         success: false,
@@ -19,6 +19,7 @@ module.exports = async (req, res, next) => {
         message_fa: 'کاربر یافت نشد'
       })
     }
+    const img = awsKey ? process.env.LIARA_URL + awsKey + '.png' : ''
     const newRequest = new RequestModel({
       owner,
       book,
@@ -30,6 +31,8 @@ module.exports = async (req, res, next) => {
       createdAt: new Date(),
       applicants: [],
       conditions,
+      img,
+      awsKey: awsKey || '',
       status: 'درانتظار تائید'
     })
     await newRequest.save()

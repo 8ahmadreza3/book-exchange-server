@@ -15,7 +15,9 @@ const requestsSchema = new mongoose.Schema({
   time: { type: String, default: '' },
   description: { type: String, default: '' },
   status: { type: String, enum: status },
-  applicants: []
+  applicants: [],
+  img: String,
+  awsKey: String
 })
 
 const requestModel = mongoose.model('Request', requestsSchema)

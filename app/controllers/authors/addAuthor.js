@@ -1,9 +1,8 @@
 const AuthorsModel = require('../../models/authorsModel')
-// const AWS = require('../../services/AWS')
 
 module.exports = async (req, res, next) => {
   try {
-    const { name, birthYear, deadYear, biography, address, isRecommend } = req.body
+    const { name, birthYear, deadYear, biography, awsKey, address, isRecommend } = req.body
     if (!name || !address) {
       res.send({
         success: false,
@@ -11,11 +10,7 @@ module.exports = async (req, res, next) => {
         message_fa: 'اطلاعات را به صورت کامل وارد کنید'
       })
     }
-    // let awsKey
-    // if (req.files.image) {
-    //   { awsKey } = await AWS.upload(req.files.image)
-    // }
-
+    const img = awsKey ? process.env.LIARA_URL + awsKey + '.png' : ''
     const newAuthor = new AuthorsModel({
       name,
       birthYear,
@@ -23,8 +18,8 @@ module.exports = async (req, res, next) => {
       isRecommend: isRecommend || false,
       biography,
       address: address.replaceAll(' ', '_'),
-      img: '', // process.env.LIARA_URL + awsKey + '.png'
-      awsKey: '' // awsKey
+      img,
+      awsKey: awsKey || ''
     })
     await newAuthor.save()
     res.status(201).send({

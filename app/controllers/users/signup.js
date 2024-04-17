@@ -1,10 +1,9 @@
 const UsersModel = require('../../models/usersModel')
 const hashServices = require('../../services/hashService')
-// const AWS = require('../../services/AWS')
 
 module.exports = async (req, res, next) => {
   try {
-    const { name, userName, phone, state, city, password } = req.body
+    const { name, userName, awsKey, phone, state, city, password } = req.body
     if (!name || !userName || !phone || !password) {
       res.send({
         success: false,
@@ -20,15 +19,9 @@ module.exports = async (req, res, next) => {
         message_fa: 'این شماره موبایل یا نام کاربری قبلا ثبت شده است'
       })
     }
-    // let upload
-    // if (req.files.image) {
-    //   upload = AWS.upload(req.files.image)
-    //   if (!upload.success) {
-    //     return res.send(upload)
-    //   }
-    // }
 
     const hashPassword = hashServices.hashPassword(password)
+    const img = awsKey ? process.env.LIARA_URL + awsKey + '.png' : ''
     const newUser = new UsersModel({
       name,
       userName: userName.replaceAll(' ', '_'),
@@ -36,9 +29,9 @@ module.exports = async (req, res, next) => {
       state,
       city,
       isAdmin: false,
-      password: hashPassword
-      // image: upload.url || '',
-      // awsKey: upload.awsKey || ''
+      password: hashPassword,
+      img,
+      awsKey: awsKey || ''
     })
     await newUser.save()
     res.status(201).send({
