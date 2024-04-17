@@ -6,15 +6,25 @@ module.exports.uploadImg = async (req, res, next) => {
     if (!imgFile) {
       return res.send({
         success: false,
-        message: '',
-        message_fa: ''
+        message: 'The photo could not be uploaded',
+        message_fa: 'عکس آپلود نشد'
       })
     }
-    const res = await AWS.upload()
+    const { response, awsKey } = await AWS.upload(imgFile)
+    if (response.$metadata.httpStatusCode !== 200) {
+      return res.send({
+        success: false,
+        message: 'The photo could not be uploaded',
+        message_fa: 'عکس آپلود نشد'
+      })
+    }
     res.send({
       success: true,
-      message: 'new author New author added',
-      message_fa: 'نویسنده جدید اضافه شد'
+      message: 'Photo uploaded',
+      message_fa: 'عکس آپلود شد',
+      data: {
+        awsKey
+      }
     })
   } catch (error) {
     next(error)
