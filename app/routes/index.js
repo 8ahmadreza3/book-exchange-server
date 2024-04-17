@@ -5,6 +5,7 @@ const usersRouter = require('./users')
 const requestsRouter = require('./requests')
 const authRouter = require('./auth')
 const searchRouter = require('./search')
+const uploadRouter = require('./upload')
 
 module.exports = (app) => {
   app.use('/users', usersRouter)
@@ -14,4 +15,5 @@ module.exports = (app) => {
   app.use('/requests', requestsRouter)
   app.use('/auth', authRouter)
   app.use('/search', searchRouter)
+  app.use('/upload', uploadRouter)
 }
