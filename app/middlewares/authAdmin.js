@@ -10,15 +10,14 @@ module.exports = async (req, res, next) => {
       message_fa: 'شما مجاز به ارسال درخواست نیستید'
     })
   }
-  const token = tokenService.verify(authorization)
-  if (!token) {
+  const userData = tokenService.verify(authorization)
+  if (!userData) {
     return res.status(401).send({
       success: false,
       message: 'your token is not valid',
       message_fa: 'توکن شما معتبر نیست'
     })
   }
-  const userData = tokenService.decode(authorization)
   delete userData.iat
   const user = await UsersModel.findOne(userData)
   if (!user || !user.isAdmin) {
@@ -28,5 +27,5 @@ module.exports = async (req, res, next) => {
       message_fa: 'شما مجاز به ارسال درخواست نیستید'
     })
   }
-  next()
+  next(user)
 }
