@@ -20,5 +20,8 @@ module.exports = async (req, res, next) => {
   }
   delete userData.iat
   const user = await UsersModel.findOne(userData)
-  next(user)
+  req.data = {
+    user
+  }
+  next()
 }

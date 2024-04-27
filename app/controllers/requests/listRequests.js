@@ -5,6 +5,14 @@ const ApplicantsModel = require('../../models/applicantsModel')
 module.exports = async (req, res, next) => {
   try {
     const { userName } = req.params
+    const { user } = req.data
+    if (!user.isAdmin && userName !== user.userName) {
+      res.send({
+        success: false,
+        message: 'You do not have the required access',
+        message_fa: 'شما دسترسی لازم را ندارید'
+      })
+    }
     if (!userName) {
       return res.status(401).send({
         success: false,
@@ -19,7 +27,7 @@ module.exports = async (req, res, next) => {
       request.createdAt = dateService.toPersianDate(request.createdAt)
       return request.owner === userName
     })
-    const requestsGetter = allRequests.filter(request => {
+    const getter = allRequests.filter(request => {
       return request.getter === userName
     })
     const owner = requestsOwner.map(request => {
@@ -43,7 +51,7 @@ module.exports = async (req, res, next) => {
       message: 'This user\'s requests were found',
       message_fa: 'درخواست های این کاربر پیدا شد',
       data: {
-        getter: requestsGetter,
+        getter,
         owner,
         applicants
       }

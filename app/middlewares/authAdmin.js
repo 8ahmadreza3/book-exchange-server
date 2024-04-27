@@ -27,5 +27,8 @@ module.exports = async (req, res, next) => {
       message_fa: 'شما مجاز به ارسال درخواست نیستید'
     })
   }
-  next(user)
+  req.data = {
+    user
+  }
+  next()
 }
