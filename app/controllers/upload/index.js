@@ -2,7 +2,7 @@ const AWS = require('../../services/AWS')
 
 module.exports.uploadImg = async (req, res, next) => {
   try {
-    const { imgFile } = req.body
+    const imgFile = req.file
     if (!imgFile) {
       return res.send({
         success: false,
@@ -10,7 +10,7 @@ module.exports.uploadImg = async (req, res, next) => {
         message_fa: 'عکس آپلود نشد'
       })
     }
-    const { response, awsKey } = await AWS.upload(imgFile)
+    const { response, awsKey } = await AWS.upload(imgFile.buffer)
     if (response.$metadata.httpStatusCode !== 200) {
       return res.send({
         success: false,

@@ -8,8 +8,7 @@ module.exports = async (req, res, next) => {
       return res.status(404).send({
         success: false,
         message: 'Invalid book',
-        message_fa: 'کتاب نامعتبر',
-        bookID
+        message_fa: 'کتاب نامعتبر'
       })
     }
     const book = await BooksModel.findByIdAndDelete(bookID)
