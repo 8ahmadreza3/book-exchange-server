@@ -18,12 +18,14 @@ module.exports.uploadImg = async (req, res, next) => {
         message_fa: 'عکس آپلود نشد'
       })
     }
+    const url = `https://kara-library.storage.iran.liara.space/${awsKey}.png`
     res.send({
       success: true,
       message: 'Photo uploaded',
       message_fa: 'عکس آپلود شد',
       data: {
-        awsKey
+        awsKey,
+        img: url
       }
     })
   } catch (error) {
