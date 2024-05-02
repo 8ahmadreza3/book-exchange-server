@@ -1,4 +1,5 @@
 const AuthorsModel = require('../../models/authorsModel')
+const aws = require('../../services/AWS')
 
 module.exports = async (req, res, next) => {
   try {
@@ -10,7 +11,7 @@ module.exports = async (req, res, next) => {
         message_fa: 'اطلاعات را به صورت کامل وارد کنید'
       })
     }
-    const img = awsKey ? process.env.LIARA_URL + awsKey + '.png' : ''
+    const img = awsKey ? aws.publicUrl(awsKey) : ''
     const newAuthor = new AuthorsModel({
       name,
       birthYear,

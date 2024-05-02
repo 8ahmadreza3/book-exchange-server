@@ -1,5 +1,6 @@
 const RequestModel = require('../../models/requestsModel')
 const UsersModel = require('../../models/usersModel')
+const aws = require('../../services/AWS')
 
 module.exports = async (req, res, next) => {
   try {
@@ -19,7 +20,7 @@ module.exports = async (req, res, next) => {
         message_fa: 'کاربر یافت نشد'
       })
     }
-    const img = awsKey ? process.env.LIARA_URL + awsKey + '.png' : ''
+    const img = awsKey ? aws.publicUrl(awsKey) : ''
     const newRequest = new RequestModel({
       owner,
       book,

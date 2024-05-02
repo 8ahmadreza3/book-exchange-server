@@ -1,16 +1,17 @@
 const BooksModel = require('../../models/booksModel')
+const aws = require('../../services/AWS')
 
 module.exports = async (req, res, next) => {
   try {
-    const { name, author, awsKey, category, info, isRecommend } = req.body
-    if (!name || !author) {
+    const { name, author, awsKey, category, info, isRecommend, address } = req.body
+    if (!name || !author || !category) {
       res.send({
         success: false,
         message: 'Enter the information in full',
         message_fa: 'اطلاعات را به صورت کامل وارد کنید'
       })
     }
-    const img = awsKey ? process.env.LIARA_URL + awsKey + '.png' : ''
+    const img = awsKey ? aws.publicUrl(awsKey) : ''
     const newBook = new BooksModel({
       name,
       author,
@@ -18,7 +19,8 @@ module.exports = async (req, res, next) => {
       info,
       isRecommend: isRecommend || false,
       img,
-      awsKey: awsKey || ''
+      awsKey: awsKey || '',
+      address: address?.replaceAll(' ', '_') || ''
     })
     await newBook.save()
     res.status(201).send({
