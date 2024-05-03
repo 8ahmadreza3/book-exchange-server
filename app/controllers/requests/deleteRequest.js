@@ -1,5 +1,6 @@
 const RequestsModel = require('../../models/requestsModel')
 const ApplicantsModel = require('../../models/applicantsModel')
+const AWS = require('../../services/AWS')
 
 module.exports = async (req, res, next) => {
   try {
@@ -14,6 +15,9 @@ module.exports = async (req, res, next) => {
           message_fa: 'نمی توان درخواست را حذف کرد'
         })
       }
+    }
+    if (request.awsKey.length > 0) {
+      AWS.remove(request.awsKey)
     }
     await ApplicantsModel.deleteMany({ requestId: request._id })
     res.send({

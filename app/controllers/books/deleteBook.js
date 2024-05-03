@@ -20,10 +20,7 @@ module.exports = async (req, res, next) => {
       })
     }
     if (book.awsKey.length > 0) {
-      const remove = AWS.remove(book.awsKey)
-      if (!remove.success) {
-        return res.send(remove)
-      }
+      AWS.remove(book.awsKey)
     }
 
     res.send({
