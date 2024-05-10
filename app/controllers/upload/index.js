@@ -18,7 +18,7 @@ module.exports.uploadImg = async (req, res, next) => {
         message_fa: 'عکس آپلود نشد'
       })
     }
-    const url = `https://kara-library.storage.iran.liara.space/${awsKey}.png`
+    const url = AWS.publicUrl(awsKey)
     res.send({
       success: true,
       message: 'Photo uploaded',
