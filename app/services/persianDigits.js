@@ -1,4 +1,4 @@
-function toFarsiNumber (n) {
+module.exports = (n) => {
   const farsiDigits = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹']
 
   return n
@@ -7,5 +7,3 @@ function toFarsiNumber (n) {
     .map(x => farsiDigits[x])
     .join('')
 }
-
-module.exports = toFarsiNumber

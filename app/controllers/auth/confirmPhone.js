@@ -1,6 +1,8 @@
 const smsService = require('../../services/smsService')
 const UsersModel = require('../../models/usersModel')
 
+// TODO  برای فراموشی پترن جدا زده بشه
+
 module.exports = async (req, res, next) => {
   try {
     const { phone } = req.params
@@ -12,8 +14,14 @@ module.exports = async (req, res, next) => {
         message_fa: 'این شماره ثبت شده شماره دیگری را امتحان کنید'
       })
     }
-    const authCode = Math.floor(Math.random() * 90000 + 10000)
-    smsService(phone, authCode)
+    const { authCode } = smsService(phone)
+    if (!authCode) {
+      res.send({
+        success: false,
+        message: 'There was an error sending',
+        message_fa: 'خطایی در ارسال رخ داد'
+      })
+    }
     res.send({
       success: true,
       message: 'Authentication code sent',
