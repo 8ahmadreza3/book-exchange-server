@@ -34,7 +34,7 @@ module.exports = async (req, res, next) => {
       conditions,
       img,
       awsKey: awsKey || '',
-      status: 'درانتظار تائید'
+      status: 'در انتظار تائید'
     })
     await newRequest.save()
     res.status(201).send({

@@ -4,7 +4,7 @@ const authorSchema = new mongoose.Schema({
   name: { type: String, minlength: 4 },
   birthYear: String,
   deadYear: { type: String, default: -1 },
-  bioGraphy: { type: String, default: '' },
+  biography: { type: String, default: '' },
   img: { type: String, default: '' },
   address: { type: String, unique: true },
   isRecommend: { type: Boolean, default: false },

@@ -12,8 +12,14 @@ module.exports = async (req, res, next) => {
         message_fa: 'شماره کاربر یافت نشد'
       })
     }
-    const authCode = Math.floor(Math.random() * 90000 + 10000)
-    smsService(user.phone, authCode)
+    const { authCode } = smsService(user.phone)
+    if (!authCode) {
+      res.send({
+        success: false,
+        message: 'There was an error sending',
+        message_fa: 'خطایی در ارسال رخ داد'
+      })
+    }
     res.send({
       success: true,
       message: 'Authentication code sent',
