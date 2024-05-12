@@ -14,7 +14,7 @@ module.exports = async (req, res, next) => {
         message_fa: 'این شماره ثبت شده شماره دیگری را امتحان کنید'
       })
     }
-    const { authCode } = smsService(phone)
+    const { authCode } = smsService(phone, process.env.SMS_LOGIN_ID)
     if (!authCode) {
       res.send({
         success: false,

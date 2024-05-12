@@ -12,7 +12,7 @@ module.exports = async (req, res, next) => {
         message_fa: 'شماره کاربر یافت نشد'
       })
     }
-    const { authCode } = smsService(user.phone)
+    const { authCode } = smsService(user.phone, process.env.SMS_FORGOT_ID)
     if (!authCode) {
       res.send({
         success: false,

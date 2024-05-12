@@ -1,10 +1,10 @@
 const https = require('https')
 
-module.exports = (to) => {
+module.exports = (to, bodyId) => {
   const authCode = Math.floor(Math.random() * 90000 + 10000).toString()
   console.info(`to: ${to} authCode: ${authCode}`)
   const data = JSON.stringify({
-    bodyId: Number(process.env.BODY_ID),
+    bodyId: Number(bodyId),
     to,
     args: [authCode]
   })
