@@ -29,7 +29,9 @@ module.exports = async (req, res, next) => {
         message_fa: 'کاربر نامعتبر'
       })
     }
-    req.body.isAdmin = false
+    if (!user.isAdmin) {
+      req.body.isAdmin = false
+    }
     const { n, nModified } = await UsersModel.updateOne({ userName }, { ...req.body })
     if (n === 0 || nModified === 0) {
       return res.status(404).send({
