@@ -4,7 +4,7 @@ const ApplicantsModel = require('../../models/applicantsModel')
 
 module.exports = async (req, res, next) => {
   try {
-    const { userName } = req.params
+    const userName = req.params.userName.replaceAll(' ', '_').toLowerCase()
     const { user } = req.data
     if (!user.isAdmin && userName !== user.userName) {
       res.send({

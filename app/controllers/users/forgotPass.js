@@ -3,7 +3,7 @@ const hashServices = require('../../services/hashService')
 
 module.exports = async (req, res, next) => {
   try {
-    const { userAuth } = req.params
+    const { userAuth } = req.params.userAuth.replaceAll(' ', '_').toLowerCase()
     const { password } = req.body
     if (!userAuth) {
       return res.status(404).send({

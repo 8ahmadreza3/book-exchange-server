@@ -4,7 +4,8 @@ const aws = require('../../services/AWS')
 
 module.exports = async (req, res, next) => {
   try {
-    const { name, userName, awsKey, phone, state, city, password } = req.body
+    const { name, awsKey, phone, state, city, password } = req.body
+    const userName = req.body.userName.replaceAll(' ', '_').toLowerCase()
     if (!name || !userName || !phone || !password) {
       res.send({
         success: false,
@@ -25,7 +26,7 @@ module.exports = async (req, res, next) => {
     const img = awsKey ? aws.publicUrl(awsKey) + awsKey + '.png' : ''
     const newUser = new UsersModel({
       name,
-      userName: userName.replaceAll(' ', '_'),
+      userName,
       phone,
       state,
       city,

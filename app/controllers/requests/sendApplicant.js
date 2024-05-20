@@ -4,7 +4,8 @@ const ApplicantsModel = require('../../models/applicantsModel')
 module.exports = async (req, res, next) => {
   try {
     const { requestId } = req.params
-    const { userName, time, description } = req.body
+    const { time, description } = req.body
+    const userName = req.body.userName.replaceAll(' ', '_').toLowerCase()
     if (!userName) {
       return res.send({
         success: false,

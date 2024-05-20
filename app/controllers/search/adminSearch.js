@@ -16,7 +16,6 @@ module.exports = async (req, res, next) => {
         message_fa: 'کلمه کلیدی یافت نشد'
       })
     }
-    keyWord = keyWord.replaceAll('_', ' ')
     const books = await BooksModel.find({
       $or: [
         { name: { $regex: `${keyWord}`, $options: 'i' } },

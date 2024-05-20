@@ -3,7 +3,7 @@ const AWS = require('../../services/AWS')
 
 module.exports = async (req, res, next) => {
   try {
-    const { userName } = req.params
+    const userName = req.params.userName.replaceAll(' ', '_').toLowerCase()
     if (!userName) {
       return res.status(404).send({
         success: false,

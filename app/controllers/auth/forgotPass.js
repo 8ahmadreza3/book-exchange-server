@@ -3,7 +3,7 @@ const UsersModel = require('../../models/usersModel')
 
 module.exports = async (req, res, next) => {
   try {
-    const { userAuth } = req.params
+    const userAuth = req.params.userAuth.replaceAll(' ', '_').toLowerCase()
     const user = await UsersModel.findOne({ $or: [{ userName: userAuth }, { phone: userAuth }] })
     if (!user) {
       return res.send({

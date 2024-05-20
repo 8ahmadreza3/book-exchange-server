@@ -3,7 +3,7 @@ const UsersModel = require('../../models/usersModel')
 module.exports = async (req, res, next) => {
   try {
     const { user } = req.data
-    const { userName } = req.params
+    const userName = req.params.userName.replaceAll(' ', '_').toLowerCase()
     if (user.userName !== userName && !user.isAdmin) {
       res.send({
         success: false,

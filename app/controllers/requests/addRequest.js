@@ -4,7 +4,8 @@ const aws = require('../../services/AWS')
 
 module.exports = async (req, res, next) => {
   try {
-    const { owner, book, awsKey, conditions, printYear, publisher } = req.body
+    const { book, awsKey, conditions, printYear, publisher } = req.body
+    const owner = req.body.owner.replaceAll(' ', '_').toLowerCase()
     if (!owner || !book) {
       res.send({
         success: false,
