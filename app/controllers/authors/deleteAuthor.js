@@ -3,7 +3,7 @@ const AWS = require('../../services/AWS')
 
 module.exports = async (req, res, next) => {
   try {
-    const { address } = req.params
+    const address = req.params.address.replaceAll(' ', '_').toLowerCase()
     if (!address) {
       return res.status(404).send({
         success: false,

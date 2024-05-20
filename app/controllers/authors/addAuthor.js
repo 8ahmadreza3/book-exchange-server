@@ -3,7 +3,8 @@ const aws = require('../../services/AWS')
 
 module.exports = async (req, res, next) => {
   try {
-    const { name, birthYear, deadYear, biography, awsKey, address, isRecommend } = req.body
+    const { name, birthYear, deadYear, biography, awsKey, isRecommend } = req.body
+    const address = req.body.address.replaceAll(' ', '_').toLowerCase()
     if (!name || !address) {
       res.send({
         success: false,
@@ -18,7 +19,7 @@ module.exports = async (req, res, next) => {
       deadYear: deadYear || '-1',
       isRecommend: isRecommend || false,
       biography,
-      address: address.replaceAll(' ', '_'),
+      address,
       img,
       awsKey: awsKey || ''
     })

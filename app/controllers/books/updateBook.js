@@ -11,7 +11,7 @@ module.exports = async (req, res, next) => {
       })
     }
     const book = await BooksModel.findById(bookID)
-    const newAddress = req.body.address.replaceAll(' ', '_')
+    const newAddress = req.body.address.replaceAll(' ', '_').toLowerCase()
     if (newAddress && newAddress !== book.address) {
       const sameAddress = await BooksModel.findOne({ address: newAddress })
       if (sameAddress) {

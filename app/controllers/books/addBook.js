@@ -3,7 +3,8 @@ const aws = require('../../services/AWS')
 
 module.exports = async (req, res, next) => {
   try {
-    const { name, author, awsKey, category, info, isRecommend, address } = req.body
+    const { name, author, awsKey, category, info, isRecommend } = req.body
+    const address = req.body.address.replaceAll(' ', '_').toLowerCase()
     if (!name || !author || !category) {
       res.send({
         success: false,
@@ -20,7 +21,7 @@ module.exports = async (req, res, next) => {
       isRecommend: isRecommend || false,
       img,
       awsKey: awsKey || '',
-      address: address?.replaceAll(' ', '_') || ''
+      address: address || ''
     })
     await newBook.save()
     res.status(201).send({

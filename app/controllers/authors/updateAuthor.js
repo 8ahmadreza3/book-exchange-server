@@ -2,8 +2,8 @@ const AuthorsModel = require('../../models/authorsModel')
 
 module.exports = async (req, res, next) => {
   try {
-    const { address } = req.params
-    const newAddress = req.body.address.replaceAll(' ', '_')
+    const address = req.params.address.replaceAll(' ', '_').toLowerCase()
+    const newAddress = req.body.address.replaceAll(' ', '_').toLowerCase()
     if (newAddress && newAddress !== address) {
       const sameAddress = await AuthorsModel.findOne({ address: newAddress })
       if (sameAddress) {

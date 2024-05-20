@@ -2,7 +2,8 @@ const CategoriesModel = require('../../models/categoriesModel')
 
 module.exports = async (req, res, next) => {
   try {
-    const { name, address, isRecommend } = req.body
+    const { name, isRecommend } = req.body
+    const address = req.body.address.replaceAll(' ', '_').toLowerCase()
     if (!name || !address) {
       res.send({
         success: false,
@@ -12,7 +13,7 @@ module.exports = async (req, res, next) => {
     }
     const newCategory = new CategoriesModel({
       name,
-      address: address.replaceAll(' ', '_'),
+      address,
       isRecommend: isRecommend || false
     })
     await newCategory.save()

@@ -3,7 +3,7 @@ const BooksModel = require('../../models/booksModel')
 
 module.exports = async (req, res, next) => {
   try {
-    const { address } = req.params
+    const address = req.params.address.replaceAll(' ', '_').toLowerCase()
     if (!address) {
       return res.status(404).send({
         success: false,
@@ -13,8 +13,8 @@ module.exports = async (req, res, next) => {
     }
     let newAddress = address
     if (req.body.address) {
-      req.body.address = req.body.address.replaceAll(' ', '_')
-      newAddress = req.body.address
+      req.body.address = req.body.address.replaceAll(' ', '_').toLowerCase()
+      newAddress = req.body.address.replaceAll(' ', '_').toLowerCase()
     }
     if (newAddress && newAddress !== address) {
       const sameAddress = await CategoriesModel.findOne({ address: newAddress })
