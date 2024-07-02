@@ -1,5 +1,6 @@
 const RequestsModel = require('../../models/requestsModel')
 const ApplicantsModel = require('../../models/applicantsModel')
+const setApplicants = require('./setApplicants')
 
 module.exports = async (req, res, next) => {
   try {
@@ -8,6 +9,7 @@ module.exports = async (req, res, next) => {
     if (n === 0 || nModified === 0) {
       const { n, nModified } = await ApplicantsModel.updateOne({ _id: requestId }, req.body)
       if (n === 0 || nModified === 0) {
+        await setApplicants(requestId)
         return res.status(404).send({
           success: false,
           message: 'can not update request',

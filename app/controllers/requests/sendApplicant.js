@@ -1,5 +1,6 @@
 const RequestsModel = require('../../models/requestsModel')
 const ApplicantsModel = require('../../models/applicantsModel')
+const setApplicants = require('./setApplicants')
 
 module.exports = async (req, res, next) => {
   try {
@@ -28,6 +29,7 @@ module.exports = async (req, res, next) => {
       description
     })
     await newApplicant.save()
+    await setApplicants(requestId)
     res.status(201).send({
       success: true,
       message: 'request sended',
