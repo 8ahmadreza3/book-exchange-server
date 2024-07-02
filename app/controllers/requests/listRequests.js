@@ -20,30 +20,20 @@ module.exports = async (req, res, next) => {
         message_fa: 'کاربر نامعتبر'
       })
     }
-    const allRequests = await RequestsModel.find({})
-    const allApplicants = await ApplicantsModel.find({})
-
-    const requestsOwner = allRequests.filter(request => {
+    let getter = await RequestsModel.find({getter: userName})
+    getter = getter.map((request) => {
       request.createdAt = dateService.toPersianDate(request.createdAt)
-      return request.owner === userName
-    })
-    const getter = allRequests.filter(request => {
-      return request.getter === userName
-    })
-    const owner = requestsOwner.map(request => {
-      request.applicants = allApplicants.filter(applicant => {
-        return applicant.requestId === request._id.toString()
-      })
       return request
     })
-    const userApplicants = allApplicants.filter(applicant => {
-      return applicant.userName === userName
+    let owner = await RequestsModel.find({owner: userName})
+    owner = owner.map((request) => {
+      request.createdAt = dateService.toPersianDate(request.createdAt)
+      return request
     })
-    const applicants = userApplicants.map(applicant => {
-      const request = allRequests.find(request => {
-        return request._id.toString() === applicant.requestId
-      })
-      request.applicants = [applicant]
+    let applicants = await ApplicantsModel.find({userName})
+    applicants = applicants.map(async (applicant) => {
+      const request = await RequestsModel.findById(applicant.requestId)
+      request.createdAt = dateService.toPersianDate(request.createdAt)
       return request
     })
     res.send({

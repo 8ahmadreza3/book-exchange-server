@@ -4,13 +4,9 @@ const dateService = require('../../services/dateService')
 
 module.exports = async (req, res, next) => {
   try {
-    const requests = await RequestsModel.find({})
-    const applicants = await ApplicantsModel.find({})
-    const presentedRequests = requests.map(request => {
+    let requests = await RequestsModel.find({})
+    requests = requests.map(request => {
       request.createdAt = dateService.toPersianDate(request.createdAt)
-      request.applicants = applicants.filter(applicant => {
-        return applicant.requestId === request._id.toString()
-      })
       return request
     })
     res.send({
@@ -18,7 +14,7 @@ module.exports = async (req, res, next) => {
       message: 'all the requests found',
       message_fa: 'تمام درخواست ها پیدا شد',
       data: {
-        requests: presentedRequests
+        requests
       }
     })
   } catch (error) {
